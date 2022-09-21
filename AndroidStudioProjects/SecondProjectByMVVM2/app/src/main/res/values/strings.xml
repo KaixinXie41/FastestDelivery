@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">SecondProjectByMVVM</string>
+    <string name="moreOption">----More Register Option ----</string>
+    <string name="enter_email">Enter Email Address</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="register">Register</string>
+    <string name="register_form">Register Form</string>
+    <string name="string_phoneNumber">Enter Your Phone Number</string>
+    <string name="phone_registration">Phone Registration</string>
+    <string name="send_code">Send One Time Password</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_form">Login Form</string>
+    <string name="login">Login</string>
+    <string name="more_login_option">------More Login Option------</string>
+    <string name="have_account">Already have account? Let\'s go login</string>
+    <string name="not_account">Haven\'t account yet? Let\'s register now!</string>
+    <string name="enter_otp_code">Enter One Time Password</string>
+    <string name="verify_code" >Verify Your Phone Number</string>
+    <string name="code">+code</string>
+</resources>
