@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Spinner
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.ActivityPhoneBinding
@@ -18,6 +20,7 @@ import java.util.concurrent.TimeUnit
 class RegistrationPhoneActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPhoneBinding
     private var number:String = ""
+    private var countryCode:String =""
     private lateinit var storeVerificationId:String
     private lateinit var resendToken:PhoneAuthProvider.ForceResendingToken
     private lateinit var  callBack: PhoneAuthProvider.OnVerificationStateChangedCallbacks
@@ -51,6 +54,16 @@ class RegistrationPhoneActivity : AppCompatActivity() {
         }
         val userAdapter = RegistrationPhoneAdapter(arrayList)
         spinner.adapter = userAdapter
+        binding.spinnerCountryCode.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                countryCode = arrayList[position].areaCode
+
+            }
+        }
     }
 
 
@@ -79,8 +92,8 @@ class RegistrationPhoneActivity : AppCompatActivity() {
 
     private fun register(){
         number = binding.edtPhone.text.toString()
-        if(number.isNotEmpty()){
-            number = "+1$number"
+        if(number.isNotEmpty() && countryCode.isNotEmpty()){
+            number = "$countryCode$number"
             sendVerification(number)
         }
     }

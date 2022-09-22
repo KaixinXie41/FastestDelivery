@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.secondprojectbymvvm.databinding.ActivityComfirmOtpactivityBinding
-import com.example.secondprojectbymvvm.view.MainActivity
+import com.example.secondprojectbymvvm.view.homepage.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider

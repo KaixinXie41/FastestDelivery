@@ -4,15 +4,11 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.AppCompatEditText
 import androidx.lifecycle.ViewModelProvider
 import com.example.secondprojectbymvvm.databinding.ActivityRegistrationBinding
-import com.example.secondprojectbymvvm.view.MainActivity
+import com.example.secondprojectbymvvm.view.homepage.MainActivity
 import com.example.secondprojectbymvvm.viewmodel.AuthViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -62,6 +58,10 @@ class RegistrationActivity : AppCompatActivity() {
 
         binding.btnPhone.setOnClickListener {
             val intent = Intent(this@RegistrationActivity, RegistrationPhoneActivity::class.java)
+            startActivity(intent)
+        }
+        binding.txtHaveAccount.setOnClickListener{
+            val intent = Intent(this@RegistrationActivity, LoginActivity::class.java)
             startActivity(intent)
         }
     }
