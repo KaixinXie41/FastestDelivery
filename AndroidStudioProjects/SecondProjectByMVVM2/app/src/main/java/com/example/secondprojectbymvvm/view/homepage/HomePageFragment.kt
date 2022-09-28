@@ -1,21 +1,16 @@
 package com.example.secondprojectbymvvm.view.homepage
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.FragmentHomePageBinding
 import com.example.secondprojectbymvvm.model.data.Offer
-import com.example.secondprojectbymvvm.view.mealitemlist.AreaItemFragment
-import com.example.secondprojectbymvvm.view.mealitemlist.CategoryItemFragment
-import com.example.secondprojectbymvvm.view.mealitemlist.IngredientsFragment
 import com.example.secondprojectbymvvm.viewmodel.CategoryViewModel
 
 class HomePageFragment : Fragment() {
@@ -37,13 +32,13 @@ class HomePageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpView()
         setUpViewModel()
-        setUpOberser()
+        setUpObserver()
         initView()
 
     }
 
 
-    private fun setUpOberser() {
+    private fun setUpObserver() {
         categoryViewModel.categoryLiveData.observe(viewLifecycleOwner){
             binding.rvCategory.adapter = HomePageCategoryAdapter(
                 categoryViewModel,  it.categories ,this)
@@ -87,40 +82,5 @@ class HomePageFragment : Fragment() {
         offerAdapter = HomePageOfferAdapter(offer)
         binding.rvOffer.layoutManager=LinearLayoutManager(context,RecyclerView.HORIZONTAL,false)
         binding.rvOffer.adapter = offerAdapter
-
-        binding.btnOption.shrink()
-        var isCollasped = false
-        binding.apply {
-            btnOption.setOnClickListener{
-                if(!isCollasped){
-                    btnOption.show()
-                    btnOptionArea.show()
-                    btnOptionIngredient.show()
-                    isCollasped = true
-                }else{
-                    btnOptionArea.hide()
-                    btnOptionIngredient.hide()
-                    isCollasped = false
-                }
-            }
-            btnOptionArea.setOnClickListener { p0 ->
-                val activity = p0!!.context as AppCompatActivity
-                val areaItemFragment = AreaItemFragment()
-                activity.supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.frameLayout_main, areaItemFragment)
-                    .addToBackStack(null)
-                    .commit()
-            }
-            btnOptionIngredient.setOnClickListener { p0 ->
-                val activity = p0!!.context as AppCompatActivity
-                val ingredientsFragment = IngredientsFragment()
-                activity.supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.frameLayout_main, ingredientsFragment)
-                    .addToBackStack(null)
-                    .commit()
-            }
-        }
     }
 }

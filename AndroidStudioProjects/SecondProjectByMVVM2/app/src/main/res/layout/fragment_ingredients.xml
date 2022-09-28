@@ -3,13 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.mealitemlist.IngredientsFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.mealitemlist.ingredient.IngredientsFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/IngredientFragment"
-        android:gravity="center"
-        android:textSize="30sp" />
+        android:id="@+id/rv_ingredient_meal_list"
+        tools:listitem="@layout/item_view_meal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </FrameLayout>

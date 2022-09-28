@@ -1,5 +1,6 @@
 package com.example.secondprojectbymvvm.view.homepage
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.ItemViewCategoryBinding
-import com.example.secondprojectbymvvm.model.data.Category
-import com.example.secondprojectbymvvm.view.mealitemlist.CategoryItemFragment
+import com.example.secondprojectbymvvm.model.data.category.Category
+import com.example.secondprojectbymvvm.view.mealitemlist.MealListAdapter
+import com.example.secondprojectbymvvm.view.mealitemlist.category.CategoryListFragment
 
 
 class HomePageCategoryAdapter(
@@ -39,23 +41,29 @@ class HomePageCategoryAdapter(
             Glide.with(context)
                 .load(category.strCategoryThumb)
                 .into(imgCategory)
-            itemView.setOnClickListener(object :View.OnClickListener{
-                override fun onClick(p0: View?) {
-                    val activity = p0!!.context as AppCompatActivity
-                    val categoryItemFragment = CategoryItemFragment()
-                    activity.supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.frameLayout_main,categoryItemFragment)
-                        .addToBackStack(null)
-                        .commit()
-                }
-            })
+            itemView.setOnClickListener { p0 ->
+                val activity = p0!!.context as AppCompatActivity
+                val categoryListFragment = CategoryListFragment()
+                val bundle = Bundle()
+                val mealCategory = category.strCategory
+                bundle.putString(MEAL_CATEGORY, mealCategory)
+                categoryListFragment.arguments = bundle
+                activity.supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frameLayout_main, categoryListFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
     }
     inner class CategoryHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val imgCategory: ImageView = binding.imgCategory
         val categoryName: TextView = binding.txtCategoryName
         val categoryDesc: TextView = binding.txtCategoryDesc
+    }
+
+    companion object{
+        const val MEAL_CATEGORY = "Category"
     }
 
 }

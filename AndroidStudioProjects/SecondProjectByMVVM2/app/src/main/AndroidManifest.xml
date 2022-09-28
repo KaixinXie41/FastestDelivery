@@ -18,6 +18,18 @@
         android:theme="@style/Theme.SecondProjectByMVVM"
         tools:targetApi="31">
         <activity
+            android:name=".YoutubeActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDwac4mP-a53fDTmfq3a2RQPo3JLxNCO5g" />
+
+        <activity
+            android:name=".view.foodtracking.MapsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_maps"></activity>
+        <activity
             android:name=".view.authentication.RegistrationConfirmOTPActivity"
             android:exported="false" />
         <activity
@@ -28,18 +40,17 @@
             android:exported="false" />
         <activity
             android:name=".view.authentication.RegistrationActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".view.homepage.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
