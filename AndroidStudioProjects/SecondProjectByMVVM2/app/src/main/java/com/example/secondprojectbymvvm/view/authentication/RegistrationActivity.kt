@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.secondprojectbymvvm.databinding.ActivityRegistrationBinding
+import com.example.secondprojectbymvvm.model.local.user.User
 import com.example.secondprojectbymvvm.view.homepage.MainActivity
 import com.example.secondprojectbymvvm.viewmodel.AuthViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -50,6 +51,9 @@ class RegistrationActivity : AppCompatActivity() {
         binding.btnRegister.setOnClickListener{
             val signUpEmail = binding.edtEmail.text.toString()
             val signUpPassword = binding.edtPassword.text.toString()
+            val signUpMobile = binding.edtMobile.text.toString()
+            val signUpUserName = binding.edtName.text.toString()
+            val user = User(null,signUpUserName,signUpMobile,signUpEmail,signUpPassword)
             authViewModel.signUp(signUpEmail, signUpPassword)
             makeToast(this@RegistrationActivity, "Register Successful!")
             val intent = Intent(this@RegistrationActivity, LoginActivity::class.java)

@@ -52,16 +52,18 @@ class LoginActivity : AppCompatActivity() {
                 val signInEmail = binding.edtEmail.text.toString()
                 val signInPassword = binding.edtPassword.text.toString()
                 val user = User(null,null,null,signInEmail,signInPassword)
-                authViewModel.signUp(signInEmail, signInPassword)
                 sharePreferences = getSharedPreferences(Account_Information, MODE_PRIVATE)
                 editor = sharePreferences.edit()
                 editor.apply{
                     putString(USER_ID, user.userID)
-                    putString(EMAIL, user.email)
-                    putString(PASSWORD, user.password)
+                    putString(USER_EMAIL, user.email)
+                    putString(USER_PASSWORD, user.password)
+                    putString(USER_MOBILE, user.mobileNo)
+                    putString(USER_NAME, user.fullName)
                     apply()
                 }
-                makeToast(this, "Register Successful!")
+                authViewModel.signIn(signInEmail, signInPassword)
+                makeToast(this, "Login Successful!")
                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                 startActivity(intent)
             }
@@ -158,10 +160,11 @@ class LoginActivity : AppCompatActivity() {
         companion object{
             const val CLIENT_ID = "74424139759-npn33vqct5ljrho38h4fdpv27gad8osr.apps.googleusercontent.com"
             const val Account_Information = "Account information"
-            const val EMAIL ="email"
-            const val PASSWORD = "password"
-            const val NAME = "name"
+            const val USER_EMAIL ="email"
+            const val USER_PASSWORD = "password"
+            const val USER_NAME = "name"
             const val USER_ID = "userId"
+            const val USER_MOBILE = "Mobile"
 
 
         }

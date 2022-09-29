@@ -84,4 +84,23 @@
     <string name="payment_title">Payment Title</string>
     <string name="payment_info">Payment Info</string>
     <string name="confirm_place">Confirm</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="one">1</string>
+    <string name="enter_new_address">Enter New Address</string>
+    <string name="enter_new_title">Enter New Title</string>
+    <string name="restaurant_name">Restaurant Name</string>
+    <string name="enter_phone_number">Enter Your Phone Number</string>
+    <string name="enter_user_name">Enter User Name</string>
+    <string name="email">Email</string>
+    <string name="number">Number</string>
+    <string name="your_order">Your Order</string>
+    <string name="profile">Profile</string>
+    <string name="mobile">Mobile</string>
+    <string name="campus">Campus</string>
+    <string name="college">College</string>
+    <string name="label_update">Update</string>
+    <string name="order_list">Order List</string>
+    <string name="order_id">Order Id</string>
+    <string name="order_date">Date</string>
+    <string name="order_details">Order Details</string>
 </resources>

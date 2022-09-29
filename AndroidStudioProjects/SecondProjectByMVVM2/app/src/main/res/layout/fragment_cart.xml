@@ -17,38 +17,11 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_0dp"
         android:id="@+id/rv_cart_item"
-        tools:itemCount="3"
+        tools:itemCount="6"
         tools:listitem="@layout/item_view_cart"
         app:layout_constraintTop_toBottomOf="@id/txt_restaurant_name"
         app:layout_constraintStart_toStartOf="parent"/>
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/group_delivery_type"
-        android:orientation="horizontal"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/rv_cart_item"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/rb_pickUp"
-            android:text="@string/pickup"
-            style="@style/TextMealDesc"/>
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/rb_delivery"
-            android:text="@string/delivery"
-            style="@style/TextMealDesc" />
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/rv_dineIn"
-            android:text="@string/dineIn"
-            style="@style/TextMealDesc"/>
-    </RadioGroup>
+
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
@@ -58,7 +31,7 @@
         style="@style/TextMealName"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/group_delivery_type"/>
+        app:layout_constraintTop_toBottomOf="@id/rv_cart_item"/>
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -67,14 +40,8 @@
         style="@style/TextMealName"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/group_delivery_type"/>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_0dp"
-        android:id="@+id/frameLayout_option"
-        app:layout_constraintTop_toBottomOf="@id/txt_total_price"
-        app:layout_constraintBottom_toTopOf="@id/btnPlaceOrder"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/rv_cart_item"/>
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"

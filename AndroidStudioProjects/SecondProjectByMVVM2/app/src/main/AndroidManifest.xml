@@ -18,7 +18,7 @@
         android:theme="@style/Theme.SecondProjectByMVVM"
         tools:targetApi="31">
         <activity
-            android:name=".YoutubeActivity"
+            android:name=".view.authentication.ProfileActivity"
             android:exported="false" />
 
         <meta-data
@@ -28,7 +28,7 @@
         <activity
             android:name=".view.foodtracking.MapsActivity"
             android:exported="false"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
         <activity
             android:name=".view.authentication.RegistrationConfirmOTPActivity"
             android:exported="false" />
@@ -40,7 +40,7 @@
             android:exported="false" />
         <activity
             android:name=".view.authentication.RegistrationActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".view.homepage.MainActivity"
             android:exported="true"

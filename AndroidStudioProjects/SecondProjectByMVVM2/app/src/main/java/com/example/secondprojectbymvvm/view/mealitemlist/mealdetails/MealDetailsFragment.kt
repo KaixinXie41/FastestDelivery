@@ -15,6 +15,7 @@ class MealDetailsFragment : Fragment() {
 
     private lateinit var binding:FragmentMealDetailsBinding
     private lateinit var mealViewModel : CategoryViewModel
+    private lateinit var currentView : View
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +31,7 @@ class MealDetailsFragment : Fragment() {
         setUpViewModel()
         setUpObserver()
     }
+
 
 
     private fun setUpView() {

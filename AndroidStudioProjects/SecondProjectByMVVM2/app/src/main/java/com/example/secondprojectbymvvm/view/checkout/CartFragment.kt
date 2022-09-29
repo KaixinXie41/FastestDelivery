@@ -61,33 +61,7 @@ class CartFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
-        binding.rbDelivery.setOnClickListener{ p0 ->
-            val activity = p0!!.context as AppCompatActivity
-            val deliveryFragment = DeliveryFragment()
-            activity.supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.frameLayout_option, deliveryFragment)
-                .addToBackStack(null)
-                .commit()
-        }
-        binding.rbPickUp.setOnClickListener{ p0 ->
-            val activity = p0!!.context as AppCompatActivity
-            val pickupFragment = PickupFragment()
-            activity.supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.frameLayout_option, pickupFragment)
-                .addToBackStack(null)
-                .commit()
-        }
-        binding.rbDelivery.setOnClickListener{ p0 ->
-            val activity = p0!!.context as AppCompatActivity
-            val dineInFragment = DineInFragment()
-            activity.supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.frameLayout_option, dineInFragment)
-                .addToBackStack(null)
-                .commit()
-        }
+
     }
     companion object{
         const val CART_ID = "cartId"

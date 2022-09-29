@@ -36,6 +36,28 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edtEmail" />
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edtMobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/enter_phone_number"
+            android:textColorHint="@color/white"
+            android:textSize="@dimen/_25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edtPassword" />
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/enter_user_name"
+            android:textColorHint="@color/white"
+            android:textSize="@dimen/_25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edtMobile" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnRegister"
@@ -47,7 +69,7 @@
             android:textSize="@dimen/_30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edtPassword" />
+            app:layout_constraintTop_toBottomOf="@id/edtName" />
 
         <TextView
             android:id="@+id/txtOptionTitle"
@@ -102,7 +124,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/_50sp"
             android:layout_marginBottom="@dimen/_150dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/txt_have_account"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

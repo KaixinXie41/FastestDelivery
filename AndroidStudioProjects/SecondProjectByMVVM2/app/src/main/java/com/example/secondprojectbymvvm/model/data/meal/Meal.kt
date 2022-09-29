@@ -8,6 +8,7 @@ data class Meal(
     val strCreativeCommonsConfirmed: Any,
     val strDrinkAlternate: Any,
     val strImageSource: Any,
+    val strPrice:String,
     val strIngredient1: String,
     val strIngredient10: String,
     val strIngredient11: String,

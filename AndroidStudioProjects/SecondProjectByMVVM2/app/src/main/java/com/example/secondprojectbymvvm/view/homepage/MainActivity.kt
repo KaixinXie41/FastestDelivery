@@ -1,13 +1,18 @@
 package com.example.secondprojectbymvvm.view.homepage
 
+import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.ActivityMainBinding
+import com.example.secondprojectbymvvm.view.authentication.LoginActivity
+import com.example.secondprojectbymvvm.view.authentication.ProfileActivity
 import com.example.secondprojectbymvvm.view.checkout.CartFragment
 import com.example.secondprojectbymvvm.view.checkout.order.OrderFragment
 import com.example.secondprojectbymvvm.view.homepage.search.SearchByAreaFragment
@@ -22,6 +27,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     lateinit var drawerLayout: DrawerLayout
     lateinit var viewModel:AuthViewModel
+    lateinit var sharedPreferences: SharedPreferences
+    lateinit var editor: SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +46,19 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24)
         drawerLayout = findViewById(R.id.drawerLayout_main)
+        sharedPreferences = getSharedPreferences(LoginActivity.Account_Information, MODE_PRIVATE)
+        editor = sharedPreferences.edit()
+        viewModel.signOut()
+
+
+        val navHeader = binding.navView.inflateHeaderView(R.layout.nav_header)
+        val userName :TextView = navHeader.findViewById(R.id.txt_nv_head_name)
+        val userEmail :TextView = navHeader.findViewById(R.id.txt_nv_head_email)
+        val userPhone : TextView = navHeader.findViewById(R.id.txt_nv_head_phone)
+
+        userName.text = sharedPreferences.getString(LoginActivity.USER_NAME, LoginActivity.USER_NAME)
+        userEmail.text = sharedPreferences.getString(LoginActivity.USER_EMAIL, LoginActivity.USER_EMAIL)
+        userPhone.text = sharedPreferences.getString(LoginActivity.USER_MOBILE, LoginActivity.USER_MOBILE)
 
         val navigationView = binding.navView as NavigationView
         navigationView.setNavigationItemSelectedListener { menuItems ->
@@ -66,6 +86,10 @@ class MainActivity : AppCompatActivity() {
                         .replace(R.id.frameLayout_main, orderFragment)
                         .addToBackStack(null)
                         .commit()
+                }
+                R.id.nav_profile ->{
+                    val intent = Intent(this@MainActivity, ProfileActivity::class.java)
+                    startActivity(intent)
                 }
             }
             true

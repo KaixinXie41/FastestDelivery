@@ -24,7 +24,8 @@
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/activity_maps.xml" value="0.1" />
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/activity_phone.xml" value="0.25" />
-        <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/activity_registration.xml" value="0.18" />
+        <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/activity_profile.xml" value="0.1" />
+        <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/activity_registration.xml" value="0.25" />
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/add_address.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/fragment_area_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/fragment_area_list.xml" value="0.25416666666666665" />
@@ -42,8 +43,10 @@
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/fragment_ingredients.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/fragment_meal_details.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/fragment_meal_list.xml" value="0.18" />
-        <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/fragment_order.xml" value="0.1583011583011583" />
+        <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/fragment_order.xml" value="0.25" />
+        <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/fragment_order_details.xml" value="0.22644927536231885" />
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/fragment_pickup.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/fragment_search.xml" value="0.22" />
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/fragment_search_by_area.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/fragment_search_by_ingredient.xml" value="0.25416666666666665" />
@@ -56,9 +59,11 @@
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/item_view_food.xml" value="0.67" />
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/item_view_ingredient.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/item_view_meal.xml" value="0.25" />
-        <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/item_view_meal_details.xml" value="0.25" />
+        <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/item_view_meal_details.xml" value="0.18" />
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/item_view_offer_discounts.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/item_view_order.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/item_view_purchase_meal.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/item_view_restaurant_.xml" value="0.253125" />
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/manage_meal_count.xml" value="0.253125" />
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/nav_header.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/KaixinXie/AndroidStudioProjects/SecondProjectByMVVM2/app/src/main/res/layout/otp_scrren.xml" value="0.33" />

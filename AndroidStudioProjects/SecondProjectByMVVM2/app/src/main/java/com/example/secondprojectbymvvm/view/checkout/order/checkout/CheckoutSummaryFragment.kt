@@ -1,7 +1,6 @@
 package com.example.secondprojectbymvvm.view.checkout.order.checkout
 
 import android.annotation.SuppressLint
-import android.content.ClipData
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,17 +11,15 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.FragmentCheckoutSummaryBinding
 import com.example.secondprojectbymvvm.model.local.cart.Cart
 import com.example.secondprojectbymvvm.model.local.cart.CartDao
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity
+import com.example.secondprojectbymvvm.view.checkout.order.checkout.CheckoutPaymentFragment.Companion.PAYMENT
+import com.example.secondprojectbymvvm.model.data.order.Item
 import com.example.secondprojectbymvvm.view.checkout.order.checkout.CheckoutDeliveryFragment.Companion.ADDRESS
 import com.example.secondprojectbymvvm.view.checkout.order.checkout.CheckoutDeliveryFragment.Companion.ADDRESS_TITLE
-import com.example.secondprojectbymvvm.view.checkout.order.checkout.CheckoutPaymentFragment.Companion.PAYMENT
-import com.example.secondprojectbymvvm.model.data.order.place.Item
-import com.google.android.material.progressindicator.CircularProgressIndicator
 
 class CheckoutSummaryFragment : Fragment() {
 
@@ -100,9 +97,4 @@ class CheckoutSummaryFragment : Fragment() {
             }
         }
     }
-
-    /*
-    override fun setResult(message: String?) {
-        cartDao.clearTable()
-    }*/
 }

@@ -1,15 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.checkout.deliveryoption.DeliveryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.appcompat.widget.AppCompatEditText
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/delivery"
-        android:gravity="center"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/edtEnterTitle"
+        android:hint="@string/enter_new_title"
+        style="@style/TextMealName"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtEnterAddress"
+        android:hint="@string/enter_new_address"
+        style="@style/TextMealName"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/edtEnterTitle"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnSaveAddress"
+        android:text="@string/save"
+        android:textSize="@dimen/_20sp"
+        app:layout_constraintTop_toBottomOf="@id/edtEnterAddress"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/orange"/>
 
-</FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

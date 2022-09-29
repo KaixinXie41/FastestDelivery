@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.ItemViewMealDetailsBinding
 import com.example.secondprojectbymvvm.databinding.ManageMealCountBinding
 import com.example.secondprojectbymvvm.model.data.meal.Meal
+import com.example.secondprojectbymvvm.model.local.cart.Cart
 import com.example.secondprojectbymvvm.model.local.cart.CartDao
 import com.example.secondprojectbymvvm.view.YoutubeFragment
 import com.example.secondprojectbymvvm.viewmodel.CategoryViewModel
@@ -26,12 +28,10 @@ class MealDetailsAdapter(
 
     private lateinit var binding: ItemViewMealDetailsBinding
     private lateinit var cartDao: CartDao
-    private lateinit var manageBinding: ManageMealCountBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealDetailsHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         binding = ItemViewMealDetailsBinding.inflate(layoutInflater, parent,false)
-        manageBinding = ManageMealCountBinding.inflate(layoutInflater, parent, false)
         cartDao = CartDao(parent.context)
         return MealDetailsHolder(binding.root)
     }
@@ -50,9 +50,10 @@ class MealDetailsAdapter(
                 .load(meal.strMealThumb)
                 .into(mealDetailsImg)
 
-
-            val cart = cartDao.getCartMealByMealId(meal.idMeal.toInt())
+            var cart = cartDao.getCartMealByMealId(meal.idMeal.toInt())
             if(cart!= null && cart.count >0) {
+                mealDetailsAddToCart.visibility = View.GONE
+                binding.layoutAddMealCount.visibility = View.VISIBLE
                 mealDetailsCount.text = cart.count.toString()
             }
 
@@ -98,6 +99,24 @@ class MealDetailsAdapter(
                     .addToBackStack(null)
                     .commit()
             }
+
+            mealDetailsAddToCart.setOnClickListener{
+                mealDetailsAddToCart.visibility = View.GONE
+                binding.layoutAddMealCount.visibility = View.VISIBLE
+                val cartMeal = Cart(
+                    null,
+                    meal.strMeal,
+                    meal.idMeal,
+                    15.00,
+                    1,
+                    meal.strMealThumb
+                )
+                cartMeal.cartId = cartDao.addCart(cartMeal)
+                if(cartMeal.cartId != null && cartMeal.cartId!! >0){
+                    mealDetailsCount.text = "1"
+                    cart = cartDao.getCartMealByMealId(meal.idMeal.toInt())
+                }
+            }
         }
     }
 
@@ -109,12 +128,11 @@ class MealDetailsAdapter(
         val mealDetailsRating : TextView = binding.txtMealDetailsRating
         val btnYoutube:ImageView = binding.imgYoutube
 
-        val mealDetailsBtnAdd = manageBinding.btnPlus
-        val mealDetailsBtnSub = manageBinding.btnMin
-        val mealDetailsCount = manageBinding.txtMealCount
-
+        val mealDetailsBtnAdd : ImageButton = binding.btnPlus
+        val mealDetailsBtnSub : ImageButton = binding.btnMin
+        val mealDetailsCount : TextView = binding.txtMealCount
+        val mealDetailsAddToCart : TextView = binding.txtAddToCart
     }
-
     companion object{
         const val YOUTUBE_URL = "url"
     }
