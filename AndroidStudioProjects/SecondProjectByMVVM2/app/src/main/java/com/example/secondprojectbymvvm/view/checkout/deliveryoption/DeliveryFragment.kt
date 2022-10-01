@@ -1,49 +1,79 @@
 package com.example.secondprojectbymvvm.view.checkout.deliveryoption
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.FragmentDeliveryBinding
 import com.example.secondprojectbymvvm.model.local.address.Address
 import com.example.secondprojectbymvvm.model.local.address.AddressDao
-import com.example.secondprojectbymvvm.viewmodel.AddressViewModel
+import com.example.secondprojectbymvvm.model.local.address.AppDatabase
+import com.example.secondprojectbymvvm.view.authentication.LoginActivity.Companion.Account_Information
+import com.example.secondprojectbymvvm.view.authentication.LoginActivity.Companion.USER_ID
+import com.example.secondprojectbymvvm.view.checkout.CartFragmentAdapter
+import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutDeliveryFragment.Companion.ADDRESS
+import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutDeliveryFragment.Companion.ADDRESS_TITLE
+import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutMealFragment
+import com.example.secondprojectbymvvm.view.checkout.deliveryoption.DeliveryAdapter.Companion.ADDRESS_ID
+import com.example.secondprojectbymvvm.viewmodel.CheckoutViewModel
 
 class DeliveryFragment : Fragment() {
 
     private lateinit var binding : FragmentDeliveryBinding
-    private lateinit var addressViewModel: AddressViewModel
+    private lateinit var addressViewModel: CheckoutViewModel
+    private lateinit var addressArrayList:ArrayList<Address>
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
+    private lateinit var addressRadioGroup: RadioGroup
+    private lateinit var hashMap : HashMap<Int,Int>
+    private lateinit var appDatabase: AppDatabase
+    private lateinit var addressDao: AddressDao
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDeliveryBinding.inflate(inflater,container,false)
+        appDatabase = AppDatabase.getInstance(this.requireContext())
+        addressDao =appDatabase.getAddressDao()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpView()
         setUpViewModel()
-        binding.btnSaveAddress.setOnClickListener {
-            saveAddress()
+        setUpObserver()
+        sharedPreferences = this.requireActivity().getSharedPreferences(Account_Information,AppCompatActivity.MODE_PRIVATE)
+        editor = sharedPreferences.edit()
+
+
+    }
+
+    private fun setUpObserver() {
+        addressViewModel.allAddress.observe(viewLifecycleOwner){
+            binding.rvAddressList.adapter = DeliveryAdapter(
+                addressViewModel, it, this.requireContext())
+        }
+    }
+
+    private fun setUpView() {
+        binding.apply {
+            rvAddressList.layoutManager = LinearLayoutManager(context)
         }
     }
 
     private fun setUpViewModel() {
-        addressViewModel = ViewModelProvider(this)[AddressViewModel::class.java]
+        addressViewModel = ViewModelProvider(this)[CheckoutViewModel::class.java]
+        addressViewModel.getAddressByAddressId(arguments?.getInt(ADDRESS_ID)?: 0)
     }
 
-    private fun saveAddress() {
-        binding.apply {
-            addressViewModel.add(Address(0,
-                edtEnterAddress.text.toString(),
-                edtEnterTitle.text.toString(),
-                ))
-            edtEnterAddress.text?.clear()
-            edtEnterTitle.text?.clear()
-        }
-    }
 }

@@ -6,16 +6,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.secondprojectbymvvm.R
+import com.example.secondprojectbymvvm.databinding.FragmentOrderDetailsBinding
+import com.example.secondprojectbymvvm.model.local.address.AppDatabase
 
 
 class OrderDetailsFragment : Fragment() {
 
+    private lateinit var binding : FragmentOrderDetailsBinding
+    private lateinit var appDatabase: AppDatabase
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_order_details, container, false)
+    ): View {
+        binding = FragmentOrderDetailsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 
 }

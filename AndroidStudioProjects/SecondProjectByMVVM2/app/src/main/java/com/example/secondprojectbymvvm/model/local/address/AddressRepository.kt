@@ -6,14 +6,12 @@ import androidx.lifecycle.LiveData
 class AddressRepository(application: Application) {
     private val addressDao:AddressDao?
     val allAddress: LiveData<List<Address>>
-    val getAddress: LiveData<List<Address>>
 
     init {
         val database = application.let{
             AppDatabase.getInstance(it)}
         addressDao = database.getAddressDao()
         allAddress = addressDao.getAllAddress()
-        getAddress = addressDao.getAddressByAddressId()
     }
 
     fun insert(address: Address){
@@ -22,6 +20,14 @@ class AddressRepository(application: Application) {
 
     fun delete(address: Address){
         addressDao?.delete(address)
+    }
+
+    fun update(address: Address){
+        addressDao?.update(address)
+    }
+
+    fun getAddressByAddressId(addressId:Int){
+        addressDao?.getAddressByAddressId(addressId)
     }
 
 }

@@ -18,6 +18,6 @@ interface OrderDao {
     @Query("SELECT * FROM `Order`")
     fun getAllOrder(): LiveData<List<Order>>
 
-    @Query("SELECT * From `Order` WHERE order_id")
-    fun getOrderByOrderId(): LiveData<List<Order>>
+    @Query("SELECT * From `Order` WHERE orderId=:orderId")
+    fun getOrderByOrderId(orderId:Int): LiveData<List<Order>>
 }

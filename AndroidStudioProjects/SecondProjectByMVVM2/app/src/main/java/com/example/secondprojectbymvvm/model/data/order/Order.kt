@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Order(
-    @PrimaryKey(autoGenerate = true) val order_id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val orderId: Int = 0,
     @ColumnInfo(name = "address") val address: String,
-    @ColumnInfo(name = "title") val address_title: String,
+    @ColumnInfo(name = "title") val addressTitle: String,
     @ColumnInfo(name = "bill_amount") val bill_amount: String,
     @ColumnInfo(name = "order_date") val order_date: String,
     @ColumnInfo(name = "order_status") val order_status: String,

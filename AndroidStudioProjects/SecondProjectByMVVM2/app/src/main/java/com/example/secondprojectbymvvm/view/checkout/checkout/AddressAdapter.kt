@@ -1,4 +1,4 @@
-package com.example.secondprojectbymvvm.view.checkout.order.checkout
+package com.example.secondprojectbymvvm.view.checkout.checkout
 
 import android.content.Context
 import android.util.Log
@@ -35,7 +35,7 @@ class AddressAdapter(
             binding.txtAddress.text = address.address
 
             itemView.setOnClickListener {
-                Log.e("address_id", address.address_id.toString())
+                Log.e("address_id", address.addressId.toString())
             }
         }
     }

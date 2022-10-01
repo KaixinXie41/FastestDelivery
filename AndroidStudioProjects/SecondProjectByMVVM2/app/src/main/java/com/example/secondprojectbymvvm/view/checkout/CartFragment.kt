@@ -4,65 +4,88 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.FragmentCartBinding
+import com.example.secondprojectbymvvm.model.local.address.AppDatabase
 import com.example.secondprojectbymvvm.model.local.cart.Cart
 import com.example.secondprojectbymvvm.model.local.cart.CartDao
-import com.example.secondprojectbymvvm.view.checkout.deliveryoption.DeliveryFragment
-import com.example.secondprojectbymvvm.view.checkout.deliveryoption.DineInFragment
-import com.example.secondprojectbymvvm.view.checkout.deliveryoption.PickupFragment
-import com.example.secondprojectbymvvm.view.checkout.order.checkout.CheckoutMealFragment
-import com.example.secondprojectbymvvm.viewmodel.CategoryViewModel
+import com.example.secondprojectbymvvm.view.checkout.CartFragmentAdapter.Companion.TOTAL_PRICE
+import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutMealFragment
+import com.example.secondprojectbymvvm.view.mealitemlist.MealListAdapter.Companion.MEAL_ID
+import com.example.secondprojectbymvvm.viewmodel.CheckoutViewModel
 
 class CartFragment : Fragment() {
     private lateinit var binding:FragmentCartBinding
     private lateinit var cartDao: CartDao
-    private lateinit var cartViewModel: CategoryViewModel
-    private lateinit var cartList:ArrayList<Cart>
+    private lateinit var cartViewModel: CheckoutViewModel
     private lateinit var adapter :CartFragmentAdapter
+    private lateinit var appDatabase: AppDatabase
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCartBinding.inflate(inflater, container, false)
+        appDatabase = AppDatabase.getInstance(this.requireContext())
+        cartDao = appDatabase.getCartDao()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        cartDao = CartDao(view.context)
-        cartList = cartDao.getAllCartMeal()
-        var total = 0.0
-        for (i in 0 until cartList.size) {
-            val cartMeal = cartList[i]
-            total += cartMeal.mealPrice * cartMeal.count
-        }
-        view.findViewById<TextView>(R.id.txt_total_price_value).text =
-            total.toString()
-        adapter = CartFragmentAdapter(view.context, cartList)
-        binding.rvCartItem.layoutManager = LinearLayoutManager(view.context)
-        binding.rvCartItem.adapter = adapter
-
+        setUpView()
+        setUpViewHolder()
+        serUpObserver()
         val btnPlaceOrder = binding.btnPlaceOrder
         btnPlaceOrder.setOnClickListener{ p0 ->
             val activity = p0!!.context as AppCompatActivity
             val checkOutMealFragment = CheckoutMealFragment()
+            val total = binding.txtTotalPriceValue.text.toString()
             val bundle = Bundle()
+            bundle.putString(TOTAL_PRICE,total)
             checkOutMealFragment.arguments = bundle
             activity.supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.frameLayout_main, checkOutMealFragment)
+                .add(R.id.frameLayout_full, checkOutMealFragment)
                 .addToBackStack(null)
                 .commit()
         }
-
     }
+
+    private fun serUpObserver() {
+        cartViewModel.allCart.observe(viewLifecycleOwner) {
+            binding.rvCartItem.adapter = CartFragmentAdapter(
+                cartViewModel, it as MutableList<Cart>, this.requireContext()
+            )
+            var total = 0.0
+            val size = it.size
+            for (i in 0 until size) {
+                val meal = it[i]
+                total += meal.totalPrice * meal.count
+            }
+            binding.txtTotalPriceValue.text = total.toString()
+        }
+        cartViewModel.totalAmount.observe(viewLifecycleOwner){
+            binding.txtTotalPriceValue.text = it.toString()
+        }
+    }
+
+    private fun setUpViewHolder() {
+        cartViewModel = ViewModelProvider(this@CartFragment)[CheckoutViewModel::class.java]
+        cartViewModel.getCartByMealId(arguments?.getString(MEAL_ID)?:"")
+    }
+
+    private fun setUpView() {
+        binding.apply {
+            rvCartItem.layoutManager = LinearLayoutManager(context)
+        }
+    }
+
     companion object{
         const val CART_ID = "cartId"
     }

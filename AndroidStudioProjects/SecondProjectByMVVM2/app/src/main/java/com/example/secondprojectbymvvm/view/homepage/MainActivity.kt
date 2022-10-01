@@ -95,6 +95,41 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        binding.btmAppbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.cart -> {
+                    val cartFragment = CartFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frameLayout_main, cartFragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
+                R.id.homePage -> {
+                    val homePageFragment = HomePageFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frameLayout_main, homePageFragment)
+                        .addToBackStack(null)
+                        .commit()
+
+                }
+                R.id.order -> {
+                    val orderFragment = OrderFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frameLayout_main, orderFragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
+                R.id.account -> {
+                    val intent = Intent(this@MainActivity, ProfileActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+            true
+        }
+
 
         binding.btnOption.shrink()
         var isCollasped = false

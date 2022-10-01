@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.FragmentOrderBinding
 import com.example.secondprojectbymvvm.view.checkout.order.orderdetails.OrderDetailsFragment
-import com.example.secondprojectbymvvm.viewmodel.OrderViewModel
+import com.example.secondprojectbymvvm.viewmodel.CheckoutViewModel
 
 
 class OrderFragment : Fragment() {
 
     private lateinit var binding : FragmentOrderBinding
-    private lateinit var orderViewModel: OrderViewModel
+    private lateinit var orderViewModel: CheckoutViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +52,7 @@ class OrderFragment : Fragment() {
     private fun setUpObserver() {
         orderViewModel.allOrder.observe(viewLifecycleOwner){
             binding.rvOrderList.adapter = OrderAdapter(
-                orderViewModel, it ,this)
+                orderViewModel, it ,this.requireContext())
         }
     }
 
@@ -63,6 +63,6 @@ class OrderFragment : Fragment() {
     }
 
     private fun setUpViewModel() {
-        orderViewModel = ViewModelProvider(this)[OrderViewModel::class.java]
+        orderViewModel = ViewModelProvider(this)[CheckoutViewModel::class.java]
     }
 }

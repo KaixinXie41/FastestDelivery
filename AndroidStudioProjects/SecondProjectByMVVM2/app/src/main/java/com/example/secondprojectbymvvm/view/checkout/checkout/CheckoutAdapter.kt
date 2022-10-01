@@ -1,4 +1,4 @@
-package com.example.secondprojectbymvvm.view.checkout.order.checkout
+package com.example.secondprojectbymvvm.view.checkout.checkout
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter

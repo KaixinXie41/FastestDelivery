@@ -33,14 +33,6 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txt_total_price"
-        android:text="@string/total_price"
-        style="@style/TextMealCategory"
-        app:layout_constraintTop_toBottomOf="@id/txt_Quantity"
-        app:layout_constraintStart_toStartOf="parent"/>
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/txt_unit_Price_value"
         android:text="@string/price_value"
         style="@style/TextMealPrice"
@@ -51,17 +43,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/txt_Quantity_value"
         android:text="@string/product_quantity_value"
+        android:gravity="center"
         style="@style/TextMealDesc"
         app:layout_constraintTop_toBottomOf="@id/txt_unit_Price"
         app:layout_constraintStart_toEndOf="@id/txt_Quantity"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txt_total_price_value"
-        android:text="@string/total_price"
-        style="@style/TextMealCategory"
-        app:layout_constraintTop_toBottomOf="@id/txt_Quantity"
-        app:layout_constraintStart_toEndOf="@id/txt_Quantity"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

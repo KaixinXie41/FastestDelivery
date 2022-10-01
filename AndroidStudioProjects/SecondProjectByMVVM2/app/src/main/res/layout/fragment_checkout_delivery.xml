@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.checkout.order.checkout.CheckoutDeliveryFragment">
+    tools:context=".view.checkout.checkout.CheckoutDeliveryFragment">
 
     <RadioGroup
         android:layout_width="match_parent"
@@ -27,12 +27,6 @@
             android:id="@+id/rb_delivery"
             android:text="@string/delivery"
             style="@style/TextMealDesc" />
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/rv_dineIn"
-            android:text="@string/dineIn"
-            style="@style/TextMealDesc"/>
     </RadioGroup>
 
     <FrameLayout
@@ -41,9 +35,20 @@
         android:id="@+id/frameLayout_delivery_option"
         app:layout_constraintTop_toBottomOf="@id/group_delivery_type"
         app:layout_constraintBottom_toTopOf="@id/btnDeliveryNext"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnAddAddress"
+        android:text="@string/add"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:layout_margin="@dimen/_10dp"
+        android:background="@drawable/btn_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnDeliveryNext"
         android:text="@string/next"
@@ -52,7 +57,7 @@
         android:layout_margin="@dimen/_10dp"
         android:background="@drawable/btn_background"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

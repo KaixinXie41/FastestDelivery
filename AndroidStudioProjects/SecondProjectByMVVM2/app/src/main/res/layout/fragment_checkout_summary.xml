@@ -4,24 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.checkout.order.checkout.CheckoutSummaryFragment">
+    tools:context=".view.checkout.checkout.CheckoutSummaryFragment">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txt_cart_product"
-        android:text="@string/cart_meal"
-        style="@style/TextMealNameLarge"
-        android:textSize="35sp"
-        android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:id="@+id/recyclerView_summary_cart"
         tools:itemCount="2"
-        app:layout_constraintTop_toBottomOf="@id/txt_cart_product"
+        app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_view_purchase_meal"/>
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
@@ -46,22 +36,23 @@
         android:layout_height="wrap_content"
         android:id="@+id/txt_pick_up_option"
         android:text="@string/pick_up_option"
+        android:layout_marginTop="@dimen/_10dp"
         android:scrollbarSize="@dimen/_25sp"
-        style="@style/TextMealDesc"
+        style="@style/TextMealName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txt_summary_total_bill_amount"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
         app:layout_constraintTop_toBottomOf="@id/txt_pick_up_option"
         android:id="@+id/layout_address">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_summary_address_title"
-            android:layout_width="49dp"
-            android:layout_height="41dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/title"
             android:textColor="@color/black"
             android:textSize="25sp"
@@ -70,8 +61,8 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_summary_address"
-            android:layout_width="76dp"
-            android:layout_height="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/address"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -84,6 +75,7 @@
         android:id="@+id/txt_payment_title"
         android:text="@string/payment_title"
         android:textSize="@dimen/_20sp"
+        android:layout_margin="@dimen/_10dp"
         style="@style/TextMealCategory"
         android:layout_marginStart="@dimen/_10dp"
         app:layout_constraintTop_toBottomOf="@id/layout_address"
@@ -94,6 +86,7 @@
         android:id="@+id/txt_payment_info"
         android:text="@string/payment_info"
         style="@style/TextMealPrice"
+        android:layout_margin="@dimen/_10dp"
         android:layout_marginStart="@dimen/_10dp"
         app:layout_constraintTop_toBottomOf="@id/layout_address"
         app:layout_constraintStart_toEndOf="@id/txt_payment_title"/>

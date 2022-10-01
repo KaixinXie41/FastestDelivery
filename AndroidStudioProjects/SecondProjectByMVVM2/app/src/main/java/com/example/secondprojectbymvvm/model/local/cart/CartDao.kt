@@ -1,94 +1,31 @@
 package com.example.secondprojectbymvvm.model.local.cart
 
-import android.annotation.SuppressLint
-import android.content.ContentValues
-import android.content.Context
-import android.database.Cursor
-import android.database.sqlite.SQLiteDatabase
-import com.example.secondprojectbymvvm.model.local.cart.Constants.Constants.TABLE_NAME
+import androidx.lifecycle.LiveData
+import androidx.room.*
 
-class CartDao (private val context:Context){
-    private val dbHelper = DBHelper(context)
-    private val db: SQLiteDatabase = dbHelper.writableDatabase
+@Dao
+interface CartDao {
 
-    fun addCart(cart: Cart):Long{
-        val contentValues = ContentValues()
-        contentValues.apply {
-            put("mealName", cart.mealName)
-            put("mealId", cart.mealId)
-            put("mealImageUrl",cart.mealImageUrl)
-            put("mealPrice",cart.mealPrice)
-            put("count",cart.count)
-        }
-        return db.insert(TABLE_NAME, null, contentValues)
-    }
+    @Insert
+    fun addCart(cart: Cart)
 
-    fun updateCartMeal(cart: Cart):Boolean{
-        val contentValues = ContentValues()
-        contentValues.apply {
-            put("mealName", cart.mealName)
-            put("mealId", cart.mealId)
-            put("mealImageUrl",cart.mealImageUrl)
-            put("mealPrice",cart.mealPrice)
-            put("count",cart.count)
-        }
-        val numOfChange:Int = db.update(TABLE_NAME, contentValues, "cartId = ${cart.cartId}", null)
-        return numOfChange == 1
-    }
+    @Update
+    fun updateCart(cart: Cart)
 
-    fun deleteCartMeal(cartId: Long):Boolean{
-        val numOfChange : Int = db.delete(TABLE_NAME, "cartId = $cartId", null)
-        return numOfChange == 1
-    }
+    @Delete
+    fun deleteCart(cart:Cart)
 
-    fun clearTable() {
-        db.execSQL("delete from $TABLE_NAME")
-    }
+    @Query("SELECT * FROM cart_table")
+    fun getAllCart():LiveData<List<Cart>>
 
-    @SuppressLint("Range", "Recycle")
-    fun getCartProduct(cartId: Int): Cart?{
-        val cursor : Cursor = db.query(TABLE_NAME, null,"cartId =?", arrayOf("$cartId"), null, null, null )
-        if(cursor.moveToFirst()) {
-            val cartId = cursor.getLong(cursor.getColumnIndex("cartId"))
-            val mealName = cursor.getString(cursor.getColumnIndex("mealName"))
-            val mealId = cursor.getString(cursor.getColumnIndex("mealId"))
-            val mealPrice = cursor.getDouble(cursor.getColumnIndex("mealPrice"))
-            val mealImageUrl = cursor.getString(cursor.getColumnIndex("mealImageUrl"))
-            val count = cursor.getInt(cursor.getColumnIndex("count"))
-            return Cart(cartId, mealName, mealId, mealPrice, count, mealImageUrl)
-        }
-        return null
-    }
-    @SuppressLint("Range")
-    fun getAllCartMeal():ArrayList<Cart>{
-        val cartMealList = ArrayList<Cart>()
-        val cursor: Cursor = db.query(TABLE_NAME, null,null,null,null,null,null)
-        if(cursor.moveToFirst()){
-            do{
-                val cartId = cursor.getLong(cursor.getColumnIndex("cartId"))
-                val mealName = cursor.getString(cursor.getColumnIndex("mealName"))
-                val mealId = cursor.getString(cursor.getColumnIndex("mealId"))
-                val mealPrice = cursor.getDouble(cursor.getColumnIndex("mealPrice"))
-                val mealImageUrl = cursor.getString(cursor.getColumnIndex("mealImageUrl"))
-                val count = cursor.getInt(cursor.getColumnIndex("count"))
-                cartMealList.add(Cart(cartId, mealName, mealId, mealPrice, count, mealImageUrl))
-            }while (cursor.moveToNext())
-        }
-        return cartMealList
-    }
+    @Query("SELECT * FROM cart_table WHERE cartId=:cartId")
+    fun getCartMealByCartId(cartId:Int): LiveData<List<Cart>>
 
-    @SuppressLint("Range")
-    fun getCartMealByMealId(mealId:Int): Cart?{
-        val cursor : Cursor = db.query(TABLE_NAME, null,"mealId =?", arrayOf("$mealId"), null, null, null )
-        if(cursor.moveToFirst()) {
-            val cartId = cursor.getLong(cursor.getColumnIndex("cartId"))
-            val mealName = cursor.getString(cursor.getColumnIndex("mealName"))
-            val mealId = cursor.getString(cursor.getColumnIndex("mealId"))
-            val mealPrice = cursor.getDouble(cursor.getColumnIndex("mealPrice"))
-            val mealImageUrl = cursor.getString(cursor.getColumnIndex("mealImageUrl"))
-            val count = cursor.getInt(cursor.getColumnIndex("count"))
-            return Cart(cartId, mealName, mealId, mealPrice, count, mealImageUrl)
-        }
-        return null
-    }
+    @Query("SELECT * FROM cart_table WHERE mealId=:mealId")
+    fun getCartMealByMealId(mealId:String): LiveData<List<Cart>>
+
+    @Query("DELETE FROM cart_table")
+    fun delete()
+
+
 }
