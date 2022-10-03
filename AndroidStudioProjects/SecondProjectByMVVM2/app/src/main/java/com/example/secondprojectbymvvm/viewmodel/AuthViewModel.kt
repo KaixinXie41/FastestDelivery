@@ -5,6 +5,7 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.secondprojectbymvvm.model.local.user.UserDao
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -73,6 +74,7 @@ class AuthViewModel():ViewModel() {
         if (auth.currentUser != null) {
             firebaseUserLiveData.postValue(auth.currentUser)
         }
+
     }
 
 }

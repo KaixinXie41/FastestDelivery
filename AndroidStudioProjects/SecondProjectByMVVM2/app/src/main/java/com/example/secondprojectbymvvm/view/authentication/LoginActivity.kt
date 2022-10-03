@@ -51,17 +51,18 @@ class LoginActivity : AppCompatActivity() {
             binding.btnLogin.setOnClickListener {
                 val signInEmail = binding.edtEmail.text.toString()
                 val signInPassword = binding.edtPassword.text.toString()
-                val user = User(null,null,null,signInEmail,signInPassword)
+                val user = User(0,null,null,signInEmail,signInPassword)
                 sharePreferences = getSharedPreferences(Account_Information, MODE_PRIVATE)
                 editor = sharePreferences.edit()
                 editor.apply{
-                    putString(USER_ID, user.userID)
+                    putInt(USER_ID, user.userId)
                     putString(USER_EMAIL, user.email)
                     putString(USER_PASSWORD, user.password)
                     putString(USER_MOBILE, user.mobileNo)
                     putString(USER_NAME, user.fullName)
                     apply()
                 }
+
                 authViewModel.signIn(signInEmail, signInPassword)
                 makeToast(this, "Login Successful!")
                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
@@ -95,6 +96,7 @@ class LoginActivity : AppCompatActivity() {
 
         private fun setUpViewModel() {
             authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
+
         }
 
 

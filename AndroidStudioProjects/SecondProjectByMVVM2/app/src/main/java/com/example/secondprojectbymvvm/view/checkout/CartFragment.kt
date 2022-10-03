@@ -1,5 +1,6 @@
 package com.example.secondprojectbymvvm.view.checkout
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.example.secondprojectbymvvm.databinding.FragmentCartBinding
 import com.example.secondprojectbymvvm.model.local.address.AppDatabase
 import com.example.secondprojectbymvvm.model.local.cart.Cart
 import com.example.secondprojectbymvvm.model.local.cart.CartDao
+import com.example.secondprojectbymvvm.view.authentication.LoginActivity
 import com.example.secondprojectbymvvm.view.checkout.CartFragmentAdapter.Companion.TOTAL_PRICE
 import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutMealFragment
 import com.example.secondprojectbymvvm.view.mealitemlist.MealListAdapter.Companion.MEAL_ID
@@ -24,6 +26,8 @@ class CartFragment : Fragment() {
     private lateinit var cartViewModel: CheckoutViewModel
     private lateinit var adapter :CartFragmentAdapter
     private lateinit var appDatabase: AppDatabase
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
 
 
     override fun onCreateView(
@@ -33,6 +37,10 @@ class CartFragment : Fragment() {
         binding = FragmentCartBinding.inflate(inflater, container, false)
         appDatabase = AppDatabase.getInstance(this.requireContext())
         cartDao = appDatabase.getCartDao()
+        sharedPreferences = this.requireActivity().getSharedPreferences(
+            LoginActivity.Account_Information, AppCompatActivity.MODE_PRIVATE
+        )
+        editor = sharedPreferences.edit()
         return binding.root
     }
 
@@ -62,11 +70,13 @@ class CartFragment : Fragment() {
             binding.rvCartItem.adapter = CartFragmentAdapter(
                 cartViewModel, it as MutableList<Cart>, this.requireContext()
             )
+            val totalAmount = sharedPreferences.getString(TOTAL_PRICE,"")
+            binding.txtTotalPriceValue.text = totalAmount
             var total = 0.0
             val size = it.size
             for (i in 0 until size) {
                 val meal = it[i]
-                total += meal.totalPrice * meal.count
+                total += meal.mealPrice * meal.count
             }
             binding.txtTotalPriceValue.text = total.toString()
         }

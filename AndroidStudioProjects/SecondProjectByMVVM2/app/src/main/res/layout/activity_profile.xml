@@ -165,7 +165,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical">
-            <TextView
+            <androidx.appcompat.widget.AppCompatEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
@@ -174,7 +174,7 @@
                 android:gravity="center|start"
                 android:paddingStart="@dimen/_10dp"
                 android:paddingTop="@dimen/_10dp"
-                android:id="@+id/text_mobile"
+                android:id="@+id/edit_mobile"
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingBottom="@dimen/_10dp"
                 tools:text="@string/number"
@@ -190,35 +190,11 @@
             android:layout_gravity="top"
             android:fontFamily="casual"
             android:gravity="center|start"
-            android:text="@string/campus"
+            android:text="@string/address"
             style="@style/TextMealName"
             android:layout_marginTop="16dp"
             android:textColor="@color/black"
             android:textSize="12sp" />
-
-        <LinearLayout
-            android:id="@+id/layout_choose_campus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:drawablePadding="@dimen/_10dp"
-                android:fontFamily="casual"
-                android:gravity="center|start"
-                android:paddingStart="@dimen/_10dp"
-                android:paddingTop="@dimen/_10dp"
-                android:id="@+id/text_campus_name"
-                android:paddingEnd="@dimen/_10dp"
-                android:paddingBottom="@dimen/_10dp"
-                android:text="@string/college"
-                android:textSize="@dimen/_15sp"
-                android:textColor="@color/black"
-                app:drawableEndCompat="@drawable/ic_baseline_edit_24" />
-        </LinearLayout>
 
 
         <com.google.android.material.button.MaterialButton

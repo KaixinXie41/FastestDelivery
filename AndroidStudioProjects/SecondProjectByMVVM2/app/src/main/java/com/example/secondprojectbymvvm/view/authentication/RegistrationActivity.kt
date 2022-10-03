@@ -53,7 +53,7 @@ class RegistrationActivity : AppCompatActivity() {
             val signUpPassword = binding.edtPassword.text.toString()
             val signUpMobile = binding.edtMobile.text.toString()
             val signUpUserName = binding.edtName.text.toString()
-            val user = User(null,signUpUserName,signUpMobile,signUpEmail,signUpPassword)
+            val user = User(0,signUpUserName,signUpMobile,signUpEmail,signUpPassword)
             authViewModel.signUp(signUpEmail, signUpPassword)
             makeToast(this@RegistrationActivity, "Register Successful!")
             val intent = Intent(this@RegistrationActivity, LoginActivity::class.java)

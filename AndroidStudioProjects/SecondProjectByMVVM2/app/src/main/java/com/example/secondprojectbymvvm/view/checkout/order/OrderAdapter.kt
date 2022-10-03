@@ -58,7 +58,7 @@ class OrderAdapter(
                 orderDetailsFragment.arguments = bundle
                 activity.supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.frameLayout_main, orderDetailsFragment)
+                    .replace(R.id.frameLayout_full, orderDetailsFragment)
                     .addToBackStack(null)
                     .commit()
             }

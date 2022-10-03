@@ -105,8 +105,9 @@ class CheckoutSummaryFragment : Fragment() {
             val payment = sharedPreferences.getString(PAYMENT,"NONE")
             val title = sharedPreferences.getString(ADDRESS_TITLE,"NONE")
             val address = sharedPreferences.getString(ADDRESS,"NONE")
+            val deliveryType = sharedPreferences.getString(Delivery_TYPE, "NONE")
             binding.btnSummaryConfirmPlace.setOnClickListener {
-                val userId = sharedPreferences.getString(LoginActivity.USER_ID, "-1")
+                val userId = sharedPreferences.getInt(LoginActivity.USER_ID, -1)
                 userId.let {
                     val cartMealList = ArrayList<Cart>()
                     val itemList = ArrayList<Item>()
@@ -123,7 +124,7 @@ class CheckoutSummaryFragment : Fragment() {
                         val formatter = SimpleDateFormat.getDateTimeInstance()
                         val orderDate = formatter.format(date)
                         orderDao.insert(
-                            Order(0, address,title,total.toString(), orderDate.toString(),"out of delivery",payment )
+                            Order(0, address,title,totalAmount, orderDate.toString(),"out of delivery",payment,deliveryType.toString())
                         )
                         cartDao.delete()
                     }
@@ -132,7 +133,7 @@ class CheckoutSummaryFragment : Fragment() {
                 val homePageFragment = HomePageFragment()
                 activity.supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.frameLayout_full, homePageFragment)
+                    .replace(R.id.frameLayout_main, homePageFragment)
                     .addToBackStack(null)
                     .commit()
             }

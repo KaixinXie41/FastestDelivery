@@ -1,24 +1,31 @@
 package com.example.secondprojectbymvvm.view.homepage
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.ActivityMainBinding
+import com.example.secondprojectbymvvm.view.authentication.EntryActivity
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity
+import com.example.secondprojectbymvvm.view.authentication.LoginActivity.Companion.USER_ID
 import com.example.secondprojectbymvvm.view.authentication.ProfileActivity
 import com.example.secondprojectbymvvm.view.checkout.CartFragment
 import com.example.secondprojectbymvvm.view.checkout.order.OrderFragment
+import com.example.secondprojectbymvvm.view.foodtracking.MapsActivity
 import com.example.secondprojectbymvvm.view.homepage.search.SearchByAreaFragment
 import com.example.secondprojectbymvvm.view.homepage.search.SearchByIngredientFragment
 import com.example.secondprojectbymvvm.view.homepage.search.SearchFragment
 import com.example.secondprojectbymvvm.viewmodel.AuthViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
 
 
@@ -48,7 +55,6 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = findViewById(R.id.drawerLayout_main)
         sharedPreferences = getSharedPreferences(LoginActivity.Account_Information, MODE_PRIVATE)
         editor = sharedPreferences.edit()
-        viewModel.signOut()
 
 
         val navHeader = binding.navView.inflateHeaderView(R.layout.nav_header)
@@ -67,7 +73,7 @@ class MainActivity : AppCompatActivity() {
                     val cartFragment = CartFragment()
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.frameLayout_main, cartFragment)
+                        .replace(R.id.frameLayout_full, cartFragment)
                         .addToBackStack(null)
                         .commit()
                 }
@@ -88,7 +94,21 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
                 R.id.nav_profile ->{
-                    val intent = Intent(this@MainActivity, ProfileActivity::class.java)
+                    val userId = sharedPreferences.getInt(USER_ID, -1)
+                    if(userId != -1) {
+                        val intent = Intent(this@MainActivity, ProfileActivity::class.java)
+                        startActivity(intent)
+                    }else{
+                        showDialog(
+                            getString(R.string.approve),
+                            getString(R.string.message_approve),
+                            getString(R.string.approved)
+                        )
+                    }
+                }
+                R.id.nav_logout ->{
+                    viewModel.signOut()
+                    val intent = Intent(this@MainActivity, EntryActivity::class.java)
                     startActivity(intent)
                 }
             }
@@ -126,6 +146,11 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this@MainActivity, ProfileActivity::class.java)
                     startActivity(intent)
                 }
+                R.id.rating ->{
+                    val intent = Intent(this@MainActivity, MapsActivity::class.java)
+                    startActivity(intent)
+                }
+
             }
             true
         }
@@ -165,6 +190,30 @@ class MainActivity : AppCompatActivity() {
                     .commit()
             }
         }
+    }
+
+    private fun showDialog(title:String, message:String,toastMessage:String){
+
+        val builder = AlertDialog.Builder(this)
+        builder.apply {
+            setTitle(title)
+            setMessage(message)
+            setPositiveButton("Confirm"){_,_ ->
+                val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                startActivity(intent)
+
+            }
+            setNegativeButton("Cancel"){_,_ ->
+                makeToast(context, "Stay with Guest Account")
+            }
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+    }
+
+    private fun makeToast(context: Context, s: String) {
+        Toast.makeText(context, s, Toast.LENGTH_SHORT).show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
