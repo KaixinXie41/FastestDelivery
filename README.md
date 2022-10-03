@@ -25,7 +25,7 @@ It's a basic function Food Order App which using Api and RoomDataBase under MVVM
                  
        |——Check out Payment option screen
                
-      |—— Check out Summary sceen
+       |—— Check out Summary sceen
    
 5. Register/Login/Logout Function Throw Firebase Authentication
    
