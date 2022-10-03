@@ -1,5 +1,6 @@
 package com.example.secondprojectbymvvm.view.checkout.checkout
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -26,6 +27,7 @@ import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutDeliveryFr
 import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutPaymentFragment.Companion.PAYMENT
 import com.example.secondprojectbymvvm.view.checkout.deliveryoption.PickupFragment
 import com.example.secondprojectbymvvm.view.homepage.HomePageFragment
+import com.example.secondprojectbymvvm.view.homepage.MainActivity
 import com.example.secondprojectbymvvm.viewmodel.CheckoutViewModel
 import com.google.gson.internal.bind.util.ISO8601Utils.format
 import java.text.SimpleDateFormat
@@ -129,13 +131,8 @@ class CheckoutSummaryFragment : Fragment() {
                         cartDao.delete()
                     }
                 }
-                val activity = it!!.context as AppCompatActivity
-                val homePageFragment = HomePageFragment()
-                activity.supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.frameLayout_main, homePageFragment)
-                    .addToBackStack(null)
-                    .commit()
+                val intent = Intent(this.requireActivity(), MainActivity::class.java)
+                startActivity(intent)
             }
         }
     }

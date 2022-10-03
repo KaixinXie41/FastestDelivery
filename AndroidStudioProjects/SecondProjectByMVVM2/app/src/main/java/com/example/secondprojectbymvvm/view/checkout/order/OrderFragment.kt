@@ -32,22 +32,9 @@ class OrderFragment : Fragment() {
         setUpView()
         setUpViewModel()
         setUpObserver()
-        initView()
     }
 
-    private fun initView() {
-        binding.txtOrderTitle.setOnClickListener { p0 ->
-                val activity = p0!!.context as AppCompatActivity
-                val orderDetailsFragment = OrderDetailsFragment()
-                val bundle = Bundle()
-                orderDetailsFragment.arguments = bundle
-                activity.supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.frameLayout_main, orderDetailsFragment)
-                    .addToBackStack(null)
-                    .commit()
-            }
-        }
+
 
     private fun setUpObserver() {
         orderViewModel.allOrder.observe(viewLifecycleOwner){

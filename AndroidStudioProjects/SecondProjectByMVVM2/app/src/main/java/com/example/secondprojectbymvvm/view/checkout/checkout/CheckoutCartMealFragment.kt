@@ -53,7 +53,7 @@ class CheckoutCartMealFragment : Fragment() {
             val size = it.size
             for (i in 0 until size) {
                 val meal = it[i]
-                total += meal.totalPrice * meal.count
+                total += meal.mealPrice * meal.count
             }
             binding.txtTotalAmountValue.text = total.toString()
         }

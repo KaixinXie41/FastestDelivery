@@ -35,7 +35,7 @@ class CheckoutCartMealAdapter(
             val cart = cartArrayList[position]
             cartMealName.text = cart.mealName
             unitQuantity.text = cart.count.toString()
-            mealPrice.text = cart.totalPrice.toString()
+            mealPrice.text = cart.mealPrice.toString()
         }
     }
 
