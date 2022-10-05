@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.secondprojectbymvvm.databinding.ActivityMainBinding
 import com.example.secondprojectbymvvm.databinding.ActivityProfileBinding
 import com.example.secondprojectbymvvm.model.local.address.AppDatabase
 import com.example.secondprojectbymvvm.model.local.user.User
@@ -14,9 +13,7 @@ import com.example.secondprojectbymvvm.view.authentication.LoginActivity.Compani
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity.Companion.USER_MOBILE
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity.Companion.USER_NAME
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity.Companion.USER_PASSWORD
-import com.example.secondprojectbymvvm.view.homepage.MainActivity
-import com.example.secondprojectbymvvm.viewmodel.AuthViewModel
-import com.example.secondprojectbymvvm.viewmodel.CheckoutViewModel
+import com.example.secondprojectbymvvm.view.homepage.home.MainActivity
 
 class ProfileActivity : AppCompatActivity() {
 

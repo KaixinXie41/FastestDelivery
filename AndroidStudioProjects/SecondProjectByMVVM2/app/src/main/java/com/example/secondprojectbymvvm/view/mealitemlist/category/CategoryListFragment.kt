@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.secondprojectbymvvm.databinding.FragmentCategoryListFragementBinding
-import com.example.secondprojectbymvvm.view.homepage.HomePageCategoryAdapter.Companion.MEAL_CATEGORY
+import com.example.secondprojectbymvvm.view.homepage.home.HomePageCategoryAdapter.Companion.MEAL_CATEGORY
 import com.example.secondprojectbymvvm.viewmodel.CategoryViewModel
 
 

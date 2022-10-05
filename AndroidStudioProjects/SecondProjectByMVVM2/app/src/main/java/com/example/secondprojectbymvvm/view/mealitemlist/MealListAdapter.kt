@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.ItemViewMealBinding
 import com.example.secondprojectbymvvm.model.data.meal.Meal
-import com.example.secondprojectbymvvm.view.homepage.HomePageFragment
 import com.example.secondprojectbymvvm.view.mealitemlist.mealdetails.MealDetailsFragment
 import com.example.secondprojectbymvvm.viewmodel.CategoryViewModel
 

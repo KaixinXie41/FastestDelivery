@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.secondprojectbymvvm.databinding.ActivityRegistrationBinding
 import com.example.secondprojectbymvvm.model.local.user.User
-import com.example.secondprojectbymvvm.view.homepage.MainActivity
+import com.example.secondprojectbymvvm.view.homepage.home.MainActivity
 import com.example.secondprojectbymvvm.viewmodel.AuthViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount

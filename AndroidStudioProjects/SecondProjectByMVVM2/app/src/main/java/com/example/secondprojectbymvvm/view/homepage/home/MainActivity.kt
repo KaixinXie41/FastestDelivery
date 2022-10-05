@@ -1,4 +1,4 @@
-package com.example.secondprojectbymvvm.view.homepage
+package com.example.secondprojectbymvvm.view.homepage.home
 
 import android.content.Context
 import android.content.Intent
@@ -8,25 +8,26 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.ActivityMainBinding
+import com.example.secondprojectbymvvm.model.Utils
 import com.example.secondprojectbymvvm.view.authentication.EntryActivity
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity.Companion.USER_ID
 import com.example.secondprojectbymvvm.view.authentication.ProfileActivity
 import com.example.secondprojectbymvvm.view.checkout.CartFragment
 import com.example.secondprojectbymvvm.view.checkout.order.OrderFragment
-import com.example.secondprojectbymvvm.view.foodtracking.MapsActivity
+import com.example.secondprojectbymvvm.view.homepage.other.AboutMeActivity
+import com.example.secondprojectbymvvm.view.homepage.other.RatingActivity
 import com.example.secondprojectbymvvm.view.homepage.search.SearchByAreaFragment
 import com.example.secondprojectbymvvm.view.homepage.search.SearchByIngredientFragment
 import com.example.secondprojectbymvvm.view.homepage.search.SearchFragment
+import com.example.secondprojectbymvvm.view.supportChat.ui.SupportChatActivity.Companion.CART_PAGE
+import com.example.secondprojectbymvvm.view.supportChat.ui.SupportChatActivity.Companion.ORDER_PAGE
 import com.example.secondprojectbymvvm.viewmodel.AuthViewModel
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.navigation.NavigationView
 
 
 class MainActivity : AppCompatActivity() {
@@ -41,10 +42,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        addFragment(HomePageFragment(), R.id.frameLayout_main)
-        addFragment(SearchFragment(), R.id.frameLayout_search)
+        checkIntent()
         viewModel = ViewModelProvider(this)[AuthViewModel::class.java]
         initView()
+
+    }
+
+    private fun checkIntent() {
+        if (intent.getBooleanExtra(ORDER_PAGE, false)) {
+            addFragment(OrderFragment(),R.id.frameLayout_main)
+        }
+        else if(intent.getBooleanExtra(CART_PAGE, false)){
+            addFragment(CartFragment(),R.id.frameLayout_main)
+        } else{
+            addFragment(HomePageFragment(), R.id.frameLayout_main)
+            addFragment(SearchFragment(), R.id.frameLayout_search)
+        }
     }
 
     private fun initView() {
@@ -66,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         userEmail.text = sharedPreferences.getString(LoginActivity.USER_EMAIL, LoginActivity.USER_EMAIL)
         userPhone.text = sharedPreferences.getString(LoginActivity.USER_MOBILE, LoginActivity.USER_MOBILE)
 
-        val navigationView = binding.navView as NavigationView
+        val navigationView = binding.navView
         navigationView.setNavigationItemSelectedListener { menuItems ->
             when (menuItems.itemId) {
                 R.id.nav_cart_page -> {
@@ -99,7 +112,7 @@ class MainActivity : AppCompatActivity() {
                         val intent = Intent(this@MainActivity, ProfileActivity::class.java)
                         startActivity(intent)
                     }else{
-                        showDialog(
+                        Utils.showDialog(this,
                             getString(R.string.approve),
                             getString(R.string.message_approve),
                             getString(R.string.approved)
@@ -107,6 +120,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 R.id.nav_logout ->{
+                    editor.clear().apply()
                     viewModel.signOut()
                     val intent = Intent(this@MainActivity, EntryActivity::class.java)
                     startActivity(intent)
@@ -142,14 +156,15 @@ class MainActivity : AppCompatActivity() {
                         .addToBackStack(null)
                         .commit()
                 }
-                R.id.account -> {
-                    val intent = Intent(this@MainActivity, ProfileActivity::class.java)
+                R.id.supportChat -> {
+                    val intent = Intent(this@MainActivity, AboutMeActivity::class.java)
                     startActivity(intent)
                 }
                 R.id.rating ->{
-                    val intent = Intent(this@MainActivity, MapsActivity::class.java)
+                    val intent = Intent(this@MainActivity, RatingActivity::class.java)
                     startActivity(intent)
                 }
+
 
             }
             true
@@ -192,29 +207,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showDialog(title:String, message:String,toastMessage:String){
 
-        val builder = AlertDialog.Builder(this)
-        builder.apply {
-            setTitle(title)
-            setMessage(message)
-            setPositiveButton("Confirm"){_,_ ->
-                val intent = Intent(this@MainActivity, LoginActivity::class.java)
-                startActivity(intent)
-
-            }
-            setNegativeButton("Cancel"){_,_ ->
-                makeToast(context, "Stay with Guest Account")
-            }
-        }
-        val alertDialog: AlertDialog = builder.create()
-        alertDialog.setCancelable(false)
-        alertDialog.show()
-    }
-
-    private fun makeToast(context: Context, s: String) {
-        Toast.makeText(context, s, Toast.LENGTH_SHORT).show()
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
@@ -237,5 +230,18 @@ class MainActivity : AppCompatActivity() {
             .add(container, fragment)
             .commit()
     }
+    private fun addFragment(fragment: OrderFragment, container: Int) {
+        supportFragmentManager.beginTransaction()
+            .add(container, fragment)
+            .commit()
+    }
+
+    private fun addFragment(fragment: CartFragment, container: Int) {
+        supportFragmentManager.beginTransaction()
+            .add(container, fragment)
+            .commit()
+    }
+
+
 
 }

@@ -9,6 +9,7 @@ data class Restaurant(
     @PrimaryKey(autoGenerate = true)val resId: Int = 0,
     @ColumnInfo(name = "name") val res_name: String,
     @ColumnInfo(name = "address") val res_address: String,
-    @ColumnInfo(name = "rating") val res_rating: String
-
+    @ColumnInfo(name = "rating") val res_rating: String,
+    @ColumnInfo(name = "latitude") val latitude: Double,
+    @ColumnInfo(name = "longitude") val longitude: Double
 )

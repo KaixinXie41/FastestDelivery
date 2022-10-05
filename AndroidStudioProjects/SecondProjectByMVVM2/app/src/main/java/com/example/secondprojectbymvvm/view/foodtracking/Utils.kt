@@ -11,7 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 
 fun Context.hasPermission(permission: String): Boolean {
     if (permission == Manifest.permission.ACCESS_BACKGROUND_LOCATION &&
-        android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.O
+        Build.VERSION.SDK_INT < Build.VERSION_CODES.O
     ) {
         return true
     }

@@ -1,4 +1,4 @@
-package com.example.secondprojectbymvvm.view
+package com.example.secondprojectbymvvm.view.homepage.other
 
 import android.annotation.SuppressLint
 import android.os.Bundle

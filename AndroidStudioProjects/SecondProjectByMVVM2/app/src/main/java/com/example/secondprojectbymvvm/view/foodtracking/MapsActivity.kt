@@ -1,5 +1,6 @@
 package com.example.secondprojectbymvvm.view.foodtracking
 
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -8,6 +9,9 @@ import android.os.Bundle
 import androidx.core.content.ContextCompat
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.ActivityMapsBinding
+import com.example.secondprojectbymvvm.view.authentication.LoginActivity
+import com.example.secondprojectbymvvm.view.checkout.deliveryoption.PickUpAdapter.Companion.LATITUDE
+import com.example.secondprojectbymvvm.view.checkout.deliveryoption.PickUpAdapter.Companion.LONGITUDE
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -18,12 +22,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
+        sharedPreferences = this.getSharedPreferences(LoginActivity.Account_Information, AppCompatActivity.MODE_PRIVATE)
+        editor = sharedPreferences.edit()
         setContentView(binding.root)
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -33,17 +41,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        val latitude = sharedPreferences.getString(LATITUDE,"NONE")
+        val longitude = sharedPreferences.getString(LONGITUDE,"NONE")
 
-        // Add a marker in Sydney and move the camera
         val home = LatLng(33.216743564251914, -96.73570575575988)
-        val restaurant = LatLng(33.21993965158354, -96.63552033084333)
+        val restaurant = LatLng(latitude!!.toDouble(), longitude!!.toDouble())
         val midpoint = LatLng(33.218381717748215, -96.68222313092001)
-        mMap.addPolygon(
-            PolygonOptions().add(restaurant,midpoint,home)
-                .strokeWidth(3f)
-                .fillColor(Color.BLUE)
+        mMap.addPolyline(
+            PolylineOptions().add(restaurant,midpoint,home)
                 .geodesic(true)
-                .strokeColor(Color.RED)
+                .color(Color.BLUE)
         )
         mMap.addMarker(
             MarkerOptions().position(home).title("Marker in Home")
@@ -59,7 +66,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 .icon(bitmapVector(R.drawable.ic_baseline_liquor_24)
                 )
         )
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(midpoint, 12f))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(midpoint, 12.5f))
     }
     private fun bitmapVector(vectorId: Int): BitmapDescriptor {
         val vectorDrawable = ContextCompat.getDrawable(this, vectorId)

@@ -40,11 +40,11 @@ class PickupFragment : Fragment() {
     }
 
     private fun initView() {
-        restaurantDao.insert(Restaurant(1,"Waffle House","1432 N Custer Rd","4"))
-        restaurantDao.insert(Restaurant(2,"IHOP","1432 E Park Rd","4"))
-        restaurantDao.insert(Restaurant(3,"Chili's Grill","4132 W Legacy Rd","4.5"))
-        restaurantDao.insert(Restaurant(4,"Arby's","2413 S Coit Rd","3"))
-        restaurantDao.insert(Restaurant(5,"Pizza Hut","1432 N Alma Rd","3.5"))
+        restaurantDao.insert(Restaurant(1,"Canes","1902 N US 75-Central Expy","4",33.227983889437134, -96.63681366926913))
+        restaurantDao.insert(Restaurant(2,"Burger King","1700 W University Dr","3.6",33.217337014311106, -96.63202445630284))
+        restaurantDao.insert(Restaurant(3,"Chili's Grill","1940 N US 75-Central Expy","4.0",33.218195029733586, -96.63441756577299))
+        restaurantDao.insert(Restaurant(4,"Applebee's","1820 W University Dr","4.1",33.21744252586674, -96.6345898183086))
+        restaurantDao.insert(Restaurant(5,"Wendy's","1714 W University Dr, McKinney, TX 75069","3.8",33.21715720559892, -96.6332021883642))
 
 
     }

@@ -8,21 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.FragmentOrderDetailsBinding
 import com.example.secondprojectbymvvm.model.data.order.OrderDao
 import com.example.secondprojectbymvvm.model.local.address.AppDatabase
 import com.example.secondprojectbymvvm.view.checkout.order.OrderAdapter.Companion.ORDER_ID
 import com.example.secondprojectbymvvm.view.foodtracking.GetCurrentDeliveryLocationActivity
-import com.example.secondprojectbymvvm.view.homepage.HomePageFragment
-import com.example.secondprojectbymvvm.view.homepage.MainActivity
+import com.example.secondprojectbymvvm.view.homepage.home.MainActivity
 import com.example.secondprojectbymvvm.viewmodel.CheckoutViewModel
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.tasks.CancellationTokenSource
 
 
 class OrderDetailsFragment : Fragment() {

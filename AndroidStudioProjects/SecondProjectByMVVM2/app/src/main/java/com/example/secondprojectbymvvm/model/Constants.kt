@@ -14,5 +14,10 @@ object Constants {
     const val FILTER_BY_CATEGORY = "filter.php?"
     const val FILTER_BY_AREA = "filter.php?"
 
+    const val SEND_ID = "SEND_ID"
+    const val RECEIVE_ID = "RECEIVE_ID"
+    const val OPEN_ORDER_PAGE = "Opening your order page.."
+    const val OPEN_CART_PAGE = "Opening your cart page"
+    const val OPEN_RATING_PAGE = "Opening rating page"
 
 }

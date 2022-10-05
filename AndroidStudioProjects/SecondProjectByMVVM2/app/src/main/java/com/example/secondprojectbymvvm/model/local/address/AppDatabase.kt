@@ -13,7 +13,7 @@ import com.example.secondprojectbymvvm.model.local.restaurant.RestaurantDao
 import com.example.secondprojectbymvvm.model.local.user.User
 import com.example.secondprojectbymvvm.model.local.user.UserDao
 
-@Database(entities = [Address::class, Restaurant::class, Order::class, Cart::class, User::class], version = 5, exportSchema = false)
+@Database(entities = [Address::class, Restaurant::class, Order::class, Cart::class, User::class], version = 6, exportSchema = false)
 abstract class AppDatabase: RoomDatabase(){
 
     abstract fun getAddressDao(): AddressDao

@@ -1,4 +1,4 @@
-package com.example.secondprojectbymvvm.view.homepage
+package com.example.secondprojectbymvvm.view.homepage.home
 
 import android.view.LayoutInflater
 import android.view.View

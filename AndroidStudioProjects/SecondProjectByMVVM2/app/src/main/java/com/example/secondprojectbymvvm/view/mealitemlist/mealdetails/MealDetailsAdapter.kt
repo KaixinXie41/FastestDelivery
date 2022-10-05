@@ -4,17 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.ItemViewMealDetailsBinding
 import com.example.secondprojectbymvvm.model.data.meal.Meal
-import com.example.secondprojectbymvvm.view.YoutubeFragment
+import com.example.secondprojectbymvvm.view.homepage.other.YoutubeFragment
 import com.example.secondprojectbymvvm.viewmodel.CategoryViewModel
 
 class MealDetailsAdapter(

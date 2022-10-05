@@ -1,4 +1,4 @@
-package com.example.secondprojectbymvvm.view.homepage
+package com.example.secondprojectbymvvm.view.homepage.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.ItemViewCategoryBinding
 import com.example.secondprojectbymvvm.model.data.category.Category
-import com.example.secondprojectbymvvm.view.mealitemlist.MealListAdapter
 import com.example.secondprojectbymvvm.view.mealitemlist.category.CategoryListFragment
 
 
