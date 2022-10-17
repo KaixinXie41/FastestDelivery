@@ -27,7 +27,7 @@ class EntryActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        val userId = sharedPreferences.getInt(USER_ID, -1)
+        val userId = sharedPreferences.getLong(USER_ID, -1).toInt()
         if(userId != -1){
             val intent = Intent(this@EntryActivity, MainActivity::class.java)
             startActivity(intent)

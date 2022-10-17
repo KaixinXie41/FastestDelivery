@@ -11,9 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.FragmentCartBinding
-import com.example.secondprojectbymvvm.model.local.address.AppDatabase
-import com.example.secondprojectbymvvm.model.local.cart.Cart
-import com.example.secondprojectbymvvm.model.local.cart.CartDao
+import com.example.secondprojectbymvvm.model.local.AppDatabase
+import com.example.secondprojectbymvvm.model.local.entities.Cart
+import com.example.secondprojectbymvvm.model.local.dao.CartDao
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity
 import com.example.secondprojectbymvvm.view.checkout.CartFragmentAdapter.Companion.TOTAL_PRICE
 import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutMealFragment
@@ -74,11 +74,16 @@ class CartFragment : Fragment() {
             binding.txtTotalPriceValue.text = totalAmount
             var total = 0.0
             val size = it.size
+            var cartIdNumber = 0
             for (i in 0 until size) {
                 val meal = it[i]
                 total += meal.mealPrice * meal.count
+                cartIdNumber = meal.cartId.toInt()
             }
             binding.txtTotalPriceValue.text = total.toString()
+            editor.putString(TOTAL_PRICE, total.toString())
+            editor.putInt(CART_ID, cartIdNumber)
+            editor.apply()
         }
         cartViewModel.totalAmount.observe(viewLifecycleOwner){
             binding.txtTotalPriceValue.text = it.toString()
@@ -98,6 +103,7 @@ class CartFragment : Fragment() {
 
     companion object{
         const val CART_ID = "cartId"
+        const val CART = "cart"
     }
 
 }

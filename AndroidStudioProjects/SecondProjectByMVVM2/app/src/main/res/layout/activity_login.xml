@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/lightblue">
+        android:background="@color/yellow">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:id="@+id/edtEmail"
             android:hint="@string/enter_email"
             android:gravity="center"
-            android:textColorHint="@color/white"
+            android:textColorHint="@color/orange_dark"
             android:textSize="@dimen/_25sp"
             app:layout_constraintTop_toBottomOf="@id/txtTitle"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
             android:gravity="center"
             android:inputType="textPassword"
             android:textSize="@dimen/_25sp"
-            android:textColorHint="@color/white"
+            android:textColorHint="@color/orange_dark"
             android:hint="@string/enter_password"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -56,25 +56,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/more_login_option"
-            android:textColor="@color/black"
+            android:textColor="@color/orange_dark"
             android:textSize="@dimen/_30sp"
             android:fontFamily="casual"
             android:textStyle="bold"
             android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toTopOf="@id/btnPhone"
             tools:layout_editor_absoluteX="0dp" />
+
         <TextView
             android:id="@+id/txt_not_account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/not_account"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_20sp"
             android:fontFamily="casual"
             android:gravity="center"
+            android:text="@string/not_account"
+            android:textColor="@color/orange_dark"
+            android:textSize="@dimen/_20sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/btnLogin"
             app:layout_constraintBottom_toTopOf="@id/txtOptionTitle"
+            app:layout_constraintTop_toBottomOf="@id/btnLogin"
+            app:layout_constraintVertical_bias="0.481"
             tools:layout_editor_absoluteX="0dp" />
 
         <androidx.appcompat.widget.AppCompatImageButton
@@ -84,7 +86,7 @@
             android:layout_marginStart="@dimen/_100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:background="@drawable/sms_icon" />
+            android:background="@drawable/ic_baseline_phone_android_24" />
         <com.google.android.gms.common.SignInButton
             android:layout_width="@dimen/_60dp"
             android:layout_height="@dimen/_60dp"
@@ -99,7 +101,7 @@
             android:layout_height="wrap_content"
             android:text="@string/login_form"
             android:textSize="@dimen/_50sp"
-            android:textColor="@color/white"
+            android:textColor="@color/orange_dark"
             android:fontFamily="cursive"
             android:layout_marginBottom="@dimen/_150dp"
             app:layout_constraintEnd_toEndOf="parent"

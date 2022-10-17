@@ -39,4 +39,8 @@
     <dimen name="_1dp">1dp</dimen>
     <dimen name="_17sp1">17sp</dimen>
     <dimen name="_17sp">17sp</dimen>
+    <dimen name="_300dp">300dp</dimen>
+    <dimen name="_400dp">400dp</dimen>
+    <dimen name="_18sp">18sp</dimen>
+    <dimen name="_3dp">3dp</dimen>
 </resources>

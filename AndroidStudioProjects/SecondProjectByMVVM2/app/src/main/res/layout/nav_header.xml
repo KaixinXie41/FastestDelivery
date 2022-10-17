@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/nav_header"
+    android:background="@color/yellow"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <TextView
         android:id="@+id/txt_nv_head_name"
@@ -10,7 +11,8 @@
         android:layout_height="wrap_content"
         android:text="@string/user_name"
         style="@style/TextMealName"
-        android:textColor="@color/black"
+        android:textColor="@color/orange_dark"
+        android:layout_margin="@dimen/_10dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
     <TextView
@@ -19,7 +21,9 @@
         android:layout_height="wrap_content"
         android:text="@string/user_email"
         style="@style/TextMealName"
-        android:textColor="@color/black"
+        android:textColor="@color/orange_dark"
+        android:layout_margin="@dimen/_10dp"
+
         app:layout_constraintTop_toBottomOf="@id/txt_nv_head_name"
         app:layout_constraintStart_toStartOf="parent"/>
     <TextView
@@ -28,8 +32,10 @@
         android:layout_height="wrap_content"
         android:text="@string/user_phone"
         style="@style/TextMealName"
-        android:textColor="@color/black"
+        android:textColor="@color/orange_dark"
+        android:layout_margin="@dimen/_10dp"
         app:layout_constraintTop_toBottomOf="@id/txt_nv_head_email"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,49 +1,63 @@
 package com.example.secondprojectbymvvm.view.checkout.checkout
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.FragmentCheckoutSummaryBinding
-import com.example.secondprojectbymvvm.model.data.order.Item
-import com.example.secondprojectbymvvm.model.data.order.Order
-import com.example.secondprojectbymvvm.model.data.order.OrderDao
-import com.example.secondprojectbymvvm.model.local.cart.Cart
-import com.example.secondprojectbymvvm.model.local.cart.CartDao
-import com.example.secondprojectbymvvm.model.local.address.AppDatabase
+import com.example.secondprojectbymvvm.model.local.entities.Item
+import com.example.secondprojectbymvvm.model.local.entities.Order
+import com.example.secondprojectbymvvm.model.local.dao.OrderDao
+import com.example.secondprojectbymvvm.model.local.dao.CartDao
+import com.example.secondprojectbymvvm.model.local.AppDatabase
+import com.example.secondprojectbymvvm.model.local.entities.Cart
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity
+import com.example.secondprojectbymvvm.view.checkout.CartFragment.Companion.CART
+import com.example.secondprojectbymvvm.view.checkout.CartFragmentAdapter.Companion.TOTAL_PRICE
 import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutDeliveryFragment.Companion.ADDRESS
 import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutDeliveryFragment.Companion.ADDRESS_TITLE
 import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutDeliveryFragment.Companion.Delivery_TYPE
 import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutPaymentFragment.Companion.PAYMENT
+import com.example.secondprojectbymvvm.view.checkout.order.OrderAdapter.Companion.ORDER_ID
+import com.example.secondprojectbymvvm.view.foodtracking.GetCurrentDeliveryLocationActivity
 import com.example.secondprojectbymvvm.view.homepage.home.MainActivity
+import com.example.secondprojectbymvvm.view.supportChat.ui.SupportChatActivity
 import com.example.secondprojectbymvvm.viewmodel.CheckoutViewModel
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class CheckoutSummaryFragment : Fragment() {
 
-    private lateinit var adapter: CheckoutCartMealAdapter
-    private lateinit var cartMealList: List<Cart>
     private lateinit var cartDao: CartDao
-    private lateinit var orderDao:OrderDao
+    private lateinit var orderDao: OrderDao
     private lateinit var checkoutViewModel: CheckoutViewModel
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
     private lateinit var binding: FragmentCheckoutSummaryBinding
     private lateinit var appDatabase: AppDatabase
 
+    private val CHANNEL_ID ="food_notification"
+    private val notificationId = 101
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCheckoutSummaryBinding.inflate(inflater, container, false)
         appDatabase = AppDatabase.getInstance(this.requireContext())
         cartDao = appDatabase.getCartDao()
@@ -62,6 +76,7 @@ class CheckoutSummaryFragment : Fragment() {
         setUpViewModel()
         setUpObserver()
         initView()
+        createNotificationChannel()
     }
 
     private fun initView() {
@@ -83,51 +98,72 @@ class CheckoutSummaryFragment : Fragment() {
 
     }
 
-
-
     private fun setUpObserver() {
-        checkoutViewModel.allCart.observe(viewLifecycleOwner){ it ->
+        checkoutViewModel.allCart.observe(viewLifecycleOwner) {
             binding.recyclerViewSummaryCart.adapter = CheckoutCartMealAdapter(
-                checkoutViewModel, it,this.requireContext()
+                checkoutViewModel, it, this.requireContext()
             )
-            var total = 0.0
-            val size = it.size
-            for (i in 0 until size) {
-                val meal = it[i]
-                total += meal.totalPrice * meal.count
-            }
+            val total = sharedPreferences.getString(TOTAL_PRICE, "None")
             binding.txtSummaryTotalBillAmountValue.text = total.toString()
             val totalAmount = binding.txtSummaryTotalBillAmountValue.text.toString()
-            val payment = sharedPreferences.getString(PAYMENT,"NONE")
-            val title = sharedPreferences.getString(ADDRESS_TITLE,"NONE")
-            val address = sharedPreferences.getString(ADDRESS,"NONE")
+            val payment = sharedPreferences.getString(PAYMENT, "NONE")
+            val title = sharedPreferences.getString(ADDRESS_TITLE, "NONE")
+            val address = sharedPreferences.getString(ADDRESS, "NONE")
             val deliveryType = sharedPreferences.getString(Delivery_TYPE, "NONE")
+            var orderId: Long
             binding.btnSummaryConfirmPlace.setOnClickListener {
-                val userId = sharedPreferences.getInt(LoginActivity.USER_ID, -1)
-                userId.let {
-                    val cartMealList = ArrayList<Cart>()
-                    val itemList = ArrayList<Item>()
-                    for(i in 0 until cartMealList.size){
-                        val cartMeal = cartMealList[i]
-                        itemList.add(Item(
-                            cartMeal.cartId!!.toInt(),
-                            cartMeal.count,
-                            cartMeal.mealPrice.toInt()
-                        ))
-                    }
-                    if(payment !=null && address!=null && title!=null){
-                        val date = Calendar.getInstance().time
-                        val formatter = SimpleDateFormat.getDateTimeInstance()
-                        val orderDate = formatter.format(date)
-                        orderDao.insert(
-                            Order(0, address,title,totalAmount, orderDate.toString(),"out of delivery",payment,deliveryType.toString())
+                if (payment != null && address != null && title != null) {
+                    val date = Calendar.getInstance().time
+                    val formatter = SimpleDateFormat.getDateTimeInstance()
+                    val orderDate = formatter.format(date)
+
+                    orderId = checkoutViewModel.addOrder(
+                        Order(
+                            0,
+                            address,
+                            title,
+                            totalAmount.toDouble(),
+                            orderDate.toString(),
+                            "out of delivery",
+                            payment,
+                            deliveryType.toString()
                         )
-                        cartDao.delete()
-                    }
+                    )
+                    editor.putLong(ORDER_ID, orderId)
+                    editor.apply()
+
+                    val cartItem: Cart = arguments?.getParcelable(CART)!!
+                    val itemMealId = cartItem.mealId.toInt()
+                    val itemCount = cartItem.count
+                    val itemMealPrice = cartItem.mealPrice.toInt()
+                    val itemMealName = cartItem.mealName
+                    val itemMealCategory = cartItem.mealCategory
+                    val item = Item(
+                        0,
+                        itemMealId,
+                        itemCount,
+                        itemMealPrice,
+                        itemMealName,
+                        orderId,
+                        itemMealCategory
+                    )
+                    checkoutViewModel.addItem(item)
+                    cartDao.delete()
                 }
+                sendNotification()
                 val intent = Intent(this.requireActivity(), MainActivity::class.java)
                 startActivity(intent)
+
+                val timer = object : CountDownTimer(10000, 1000) {
+                    override fun onTick(millisUntilFinished: Long) {}
+
+                    override fun onFinish() {
+                        setAlarmDelivery()
+                    }
+                }
+                timer.start()
             }
+
         }
     }
 
@@ -140,6 +176,69 @@ class CheckoutSummaryFragment : Fragment() {
             recyclerViewSummaryCart.layoutManager = LinearLayoutManager(context)
         }
     }
+
+    private fun createNotificationChannel() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val name = "Notification Title"
+            val descriptionText = "Notification Description"
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+
+            val notificationManager : NotificationManager = activity?.getSystemService(Context.NOTIFICATION_SERVICE ) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun sendNotification(){
+        val intent = Intent(this.requireContext(), MainActivity::class.java)
+        intent.putExtra(SupportChatActivity.ORDER_PAGE, true)
+            intent.apply{
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this.requireContext(), 0,intent, PendingIntent.FLAG_MUTABLE)
+
+        val builder = NotificationCompat.Builder(this.requireContext(), CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_baseline_liquor_24)
+            .setContentTitle("Food is preparing!")
+            .setContentText("Hi! We got your order, Your food is preparing right now!")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentIntent(pendingIntent)
+
+        with(NotificationManagerCompat.from(this.requireContext())){
+            notify(notificationId, builder.build())
+        }
+    }
+
+
+
+    private fun setAlarmDelivery() {
+        val calender: Calendar = Calendar.getInstance()
+        calender.set(Calendar.MINUTE, 0)
+        calender.set(Calendar.SECOND, 5)
+        val thuReq: Long = Calendar.getInstance().timeInMillis + 1
+        val reqReqCode = thuReq.toInt()
+        if (calender.timeInMillis < System.currentTimeMillis()) {
+            calender.add(Calendar.DAY_OF_YEAR, 1)
+        }
+        val intent = Intent(this.requireContext(), GetCurrentDeliveryLocationActivity::class.java)
+        intent.putExtra(SupportChatActivity.ORDER_PAGE, true)
+        intent.flags = Intent.FLAG_ACTIVITY_MULTIPLE_TASK
+        val pendingIntent:PendingIntent = PendingIntent.getActivity(this.requireContext(), reqReqCode, intent, PendingIntent.FLAG_MUTABLE)
+        val builder = NotificationCompat.Builder(this.requireContext(), CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_baseline_liquor_24)
+            .setContentTitle("Food is delivering!")
+            .setContentText("Hi! Your delicious food is on the way to you now!")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentIntent(pendingIntent)
+
+        with(NotificationManagerCompat.from(this.requireContext())){
+            notify(notificationId, builder.build())
+        }
+
+    }
+
     companion object{
         const val BILL_TOTAL = "billTotal"
     }

@@ -6,10 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
-import android.widget.Spinner
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.ActivityPhoneBinding
-import com.example.secondprojectbymvvm.model.data.Phone
+import com.example.secondprojectbymvvm.model.local.entities.Phone
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential

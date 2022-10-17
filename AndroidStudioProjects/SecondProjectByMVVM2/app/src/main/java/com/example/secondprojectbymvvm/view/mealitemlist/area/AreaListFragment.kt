@@ -43,9 +43,9 @@ class AreaListFragment : Fragment() {
     }
 
     private fun setUpObserver() {
-        mealViewModel.mealLiveData.observe(viewLifecycleOwner) {
+        mealViewModel.areaLiveData.observe(viewLifecycleOwner) {
             binding.rvAreaMealList.adapter = AreaListAdapter(
-                mealViewModel, it.meals, this)
+                mealViewModel, it.meals, this.requireContext())
         }
     }
 }

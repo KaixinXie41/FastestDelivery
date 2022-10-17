@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.secondprojectbymvvm.databinding.ItemViewOfferDiscountsBinding
-import com.example.secondprojectbymvvm.model.data.Offer
+import com.example.secondprojectbymvvm.model.local.entities.Offer
 
 class HomePageOfferAdapter(
     private val offer: List<Offer>)

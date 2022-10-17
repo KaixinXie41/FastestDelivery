@@ -5,9 +5,9 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.secondprojectbymvvm.databinding.ActivityProfileBinding
-import com.example.secondprojectbymvvm.model.local.address.AppDatabase
-import com.example.secondprojectbymvvm.model.local.user.User
-import com.example.secondprojectbymvvm.model.local.user.UserDao
+import com.example.secondprojectbymvvm.model.local.AppDatabase
+import com.example.secondprojectbymvvm.model.local.entities.User
+import com.example.secondprojectbymvvm.model.local.dao.UserDao
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity.Companion.USER_EMAIL
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity.Companion.USER_ID
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity.Companion.USER_MOBILE
@@ -44,19 +44,23 @@ class ProfileActivity : AppCompatActivity() {
         userMobile.hint = sharedPreferences.getString(USER_MOBILE, USER_MOBILE)
 
         binding.buttonUpdate.setOnClickListener {
-            val userId = sharedPreferences.getInt(USER_ID, -1)
+            val userId = sharedPreferences.getLong(USER_ID, -1)
             val name = binding.editName.text.toString()
             val email = binding.editEmail.text.toString()
             val mobile = binding.editMobile.text.toString()
             val password = sharedPreferences.getString(USER_PASSWORD,"")
 
-            editor.putInt(USER_ID,userId)
+            editor.putLong(USER_ID,userId)
             editor.putString(USER_NAME,name)
             editor.putString(USER_EMAIL,email)
             editor.putString(USER_MOBILE,mobile)
             editor.apply()
             val user = User(userId, name,mobile,email, password.toString())
             userDao.updateUser(user)
+
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
 
         }
 

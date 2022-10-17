@@ -11,6 +11,7 @@ class AboutMeActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityAboutMeBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAboutMeBinding.inflate(layoutInflater)
@@ -23,7 +24,7 @@ class AboutMeActivity : AppCompatActivity() {
             btnContactEmail.setOnClickListener {
                 val intent = Intent(Intent.ACTION_SEND)
                 intent.type = "message/rfc822"
-                intent.putExtra(Intent.EXTRA_EMAIL, "xkx372752892@gmail.com")
+                intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("xkx372752892@gmail.com"))
                 intent.putExtra(Intent.EXTRA_TEXT, "Text you want to share")
                 startActivity(Intent.createChooser(intent, "Send mail..."))
             }

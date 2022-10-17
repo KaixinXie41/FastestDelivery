@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.FragmentEditAddressBinding
-import com.example.secondprojectbymvvm.model.local.address.Address
-import com.example.secondprojectbymvvm.model.local.address.AddressDao
-import com.example.secondprojectbymvvm.model.local.address.AppDatabase
+import com.example.secondprojectbymvvm.model.local.entities.Address
+import com.example.secondprojectbymvvm.model.local.dao.AddressDao
+import com.example.secondprojectbymvvm.model.local.AppDatabase
 import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutDeliveryFragment
 import com.example.secondprojectbymvvm.view.checkout.deliveryoption.DeliveryAdapter.Companion.ADDRESS_ID
 import com.example.secondprojectbymvvm.viewmodel.CheckoutViewModel
@@ -70,7 +70,7 @@ class EditAddressFragment : Fragment() {
 
     private fun setUpViewModel() {
         addressViewModel = ViewModelProvider(this@EditAddressFragment)[CheckoutViewModel::class.java]
-        addressViewModel.getAddressByAddressId(arguments?.getInt(ADDRESS_ID)?: 0)
+        addressViewModel.getAddressByAddressId(arguments?.getLong(ADDRESS_ID)?: 0)
     }
 
 }

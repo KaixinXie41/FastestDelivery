@@ -1,6 +1,8 @@
 package com.example.secondprojectbymvvm.view.checkout.order.orderdetails
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,23 +10,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.secondprojectbymvvm.databinding.FragmentOrderDetailsBinding
-import com.example.secondprojectbymvvm.model.data.order.OrderDao
-import com.example.secondprojectbymvvm.model.local.address.AppDatabase
+import com.example.secondprojectbymvvm.model.local.entities.Order
+import com.example.secondprojectbymvvm.view.authentication.LoginActivity
+import com.example.secondprojectbymvvm.view.checkout.order.OrderAdapter.Companion.ORDER
 import com.example.secondprojectbymvvm.view.checkout.order.OrderAdapter.Companion.ORDER_ID
 import com.example.secondprojectbymvvm.view.foodtracking.GetCurrentDeliveryLocationActivity
 import com.example.secondprojectbymvvm.view.homepage.home.MainActivity
+import com.example.secondprojectbymvvm.view.homepage.other.AboutMeActivity
 import com.example.secondprojectbymvvm.viewmodel.CheckoutViewModel
 
 
 class OrderDetailsFragment : Fragment() {
 
     private lateinit var binding : FragmentOrderDetailsBinding
-    private lateinit var appDatabase: AppDatabase
-    private lateinit var orderDao: OrderDao
     private lateinit var orderViewModel: CheckoutViewModel
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
+    private lateinit var order: Order
 
 
     override fun onCreateView(
@@ -32,6 +38,11 @@ class OrderDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentOrderDetailsBinding.inflate(inflater, container, false)
+        sharedPreferences = this.requireActivity().getSharedPreferences(
+            LoginActivity.Account_Information,
+            AppCompatActivity.MODE_PRIVATE
+        )
+        editor = sharedPreferences.edit()
         return binding.root
     }
 
@@ -43,32 +54,55 @@ class OrderDetailsFragment : Fragment() {
         setUpObserver()
     }
 
+
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setUpObserver() {
-        orderViewModel.allOrder.observe(viewLifecycleOwner){
-            binding.recyclerViewOrderDetailsCart.adapter=OrderDetailsAdapter(
-                orderViewModel, it, this.requireContext())
+        orderViewModel.allItem.observe(viewLifecycleOwner) {
+            binding.recyclerOrderItems.adapter = OrderDetailsAdapter(
+                orderViewModel, it, this.requireContext()
+            )
 
-            binding.btnGoBackHomePage.setOnClickListener {
+            binding.imageClose.setOnClickListener {
                 val intent = Intent(this.requireContext(), MainActivity::class.java)
                 startActivity(intent)
 
             }
-            binding.btnGetCurrentOrderLocation.setOnClickListener {
+            binding.txtOrderStatusValue.setOnClickListener {
                 val intent = Intent(this.requireContext(), GetCurrentDeliveryLocationActivity::class.java)
                 startActivity(intent)
             }
+            binding.imageCall.setOnClickListener{
+                val intent = Intent(this.requireContext(), AboutMeActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        val bundle =this.arguments
+        if(bundle != null){
+            order = bundle.getParcelable(ORDER)!!
+        }
+            binding.apply {
+                txtOrderStatusValue.text = order.order_status
+                txtItemTotalPrice.text = order.bill_amount.toString()
+                val deliveryFee = order.bill_amount.toInt() * 0.1
+                txtDeliveryPrice.text = deliveryFee.toString()
+                txtTotalPrice.text = (order.bill_amount.toInt() + deliveryFee).toString()
+                txtOrderTime.text = order.order_date
+                txtOrderIdValue.text = order.orderId.toString()
+                txtDeliveryLocation.text = "${order.addressTitle}\n + ${order.address}"
+                txtTransactionId.text = (order.orderId + 1413).toString()
+
         }
     }
 
     private fun setUpViewModel() {
         orderViewModel = ViewModelProvider(this)[CheckoutViewModel::class.java]
-        orderViewModel.getOrderByOrderId(arguments?.getInt(ORDER_ID)?:0)
+        orderViewModel.getOrderByOrderId(arguments?.getLong(ORDER_ID)?:0)
     }
 
     private fun setUpView() {
         binding.apply {
-            recyclerViewOrderDetailsCart.layoutManager = LinearLayoutManager(context)
+            recyclerOrderItems.layoutManager = LinearLayoutManager(context)
         }
     }
 

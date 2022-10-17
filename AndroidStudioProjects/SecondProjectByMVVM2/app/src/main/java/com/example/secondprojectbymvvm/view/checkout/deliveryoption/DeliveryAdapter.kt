@@ -6,14 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.ItemViewAddressBinding
-import com.example.secondprojectbymvvm.model.local.address.Address
-import com.example.secondprojectbymvvm.model.local.address.AddressDao
-import com.example.secondprojectbymvvm.model.local.address.AppDatabase
+import com.example.secondprojectbymvvm.model.local.entities.Address
+import com.example.secondprojectbymvvm.model.local.dao.AddressDao
+import com.example.secondprojectbymvvm.model.local.AppDatabase
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity
 import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutDeliveryFragment.Companion.ADDRESS
 import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutDeliveryFragment.Companion.ADDRESS_TITLE
@@ -55,7 +54,7 @@ class DeliveryAdapter(
                 val editAddressFragment = EditAddressFragment()
                 val bundle = Bundle()
                 val addressId = item.addressId
-                bundle.putInt(ADDRESS_ID, addressId)
+                bundle.putLong(ADDRESS_ID, addressId)
                 editAddressFragment.arguments = bundle
                 activity.supportFragmentManager
                     .beginTransaction()
@@ -68,7 +67,7 @@ class DeliveryAdapter(
                 val deliveryFragment = DeliveryFragment()
                 val bundle = Bundle()
                 val addressId = item.addressId
-                bundle.putInt(ADDRESS_ID, addressId)
+                bundle.putLong(ADDRESS_ID, addressId)
                 checkoutSummaryFragment.arguments = bundle
                 deliveryFragment.arguments = bundle
             }
@@ -78,6 +77,9 @@ class DeliveryAdapter(
                 editor.putString(ADDRESS, address)
                 editor.putString(ADDRESS_TITLE, title)
                 editor.apply()
+            }
+            binding.btnDeleteAddress.setOnClickListener {
+                addressDao.delete(item)
             }
         }
     }

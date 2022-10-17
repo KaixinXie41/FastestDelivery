@@ -10,12 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.FragmentCheckoutDeliveryBinding
-import com.example.secondprojectbymvvm.model.local.address.AddressDao
-import com.example.secondprojectbymvvm.model.local.address.AppDatabase
-import com.example.secondprojectbymvvm.model.local.restaurant.RestaurantDao
+import com.example.secondprojectbymvvm.model.local.dao.AddressDao
+import com.example.secondprojectbymvvm.model.local.AppDatabase
+import com.example.secondprojectbymvvm.model.local.dao.RestaurantDao
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity
 import com.example.secondprojectbymvvm.view.checkout.deliveryoption.AddAddressFragment
-import com.example.secondprojectbymvvm.view.checkout.deliveryoption.DeliveryAdapter
 import com.example.secondprojectbymvvm.view.checkout.deliveryoption.DeliveryFragment
 import com.example.secondprojectbymvvm.view.checkout.deliveryoption.PickupFragment
 import com.example.secondprojectbymvvm.viewmodel.CheckoutViewModel

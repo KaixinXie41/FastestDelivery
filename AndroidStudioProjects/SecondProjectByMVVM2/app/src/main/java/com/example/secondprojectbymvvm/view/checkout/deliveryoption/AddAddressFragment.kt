@@ -9,9 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.FragmentAddAddressBinding
-import com.example.secondprojectbymvvm.model.local.address.Address
-import com.example.secondprojectbymvvm.model.local.address.AddressDao
-import com.example.secondprojectbymvvm.model.local.address.AppDatabase
+import com.example.secondprojectbymvvm.model.local.entities.Address
 import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutDeliveryFragment
 import com.example.secondprojectbymvvm.viewmodel.CheckoutViewModel
 
@@ -21,7 +19,7 @@ class AddAddressFragment : Fragment() {
     private lateinit var binding:FragmentAddAddressBinding
     private lateinit var addressViewModel : CheckoutViewModel
 
-    private lateinit var addressItem:Address
+    private lateinit var addressItem: Address
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,9 +61,7 @@ class AddAddressFragment : Fragment() {
         binding.apply {
             val title = edtAddressTitle.text.toString()
             val address = edtAddress.text.toString()
-            addressViewModel.addAddress(Address(0, title, address))
-            addressItem = Address(0,edtAddress.text.toString(),edtAddressTitle.text.toString())
-            addressViewModel.addAddress(addressItem)
+            addressViewModel.addAddress(Address(0,address, title))
             edtAddressTitle.text?.clear()
             edtAddress.text?.clear()
         }

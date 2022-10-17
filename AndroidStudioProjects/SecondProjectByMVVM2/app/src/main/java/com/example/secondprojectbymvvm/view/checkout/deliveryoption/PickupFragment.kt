@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.secondprojectbymvvm.databinding.FragmentPickupBinding
-import com.example.secondprojectbymvvm.model.local.address.AppDatabase
-import com.example.secondprojectbymvvm.model.local.restaurant.Restaurant
-import com.example.secondprojectbymvvm.model.local.restaurant.RestaurantDao
+import com.example.secondprojectbymvvm.model.local.AppDatabase
+import com.example.secondprojectbymvvm.model.local.entities.Restaurant
+import com.example.secondprojectbymvvm.model.local.dao.RestaurantDao
 import com.example.secondprojectbymvvm.view.checkout.deliveryoption.PickUpAdapter.Companion.RESTAURANT_ID
 import com.example.secondprojectbymvvm.viewmodel.CheckoutViewModel
 
@@ -58,7 +58,7 @@ class PickupFragment : Fragment() {
 
     private fun setUpViewModel() {
         restaurantViewModel = ViewModelProvider(this)[CheckoutViewModel::class.java]
-        restaurantViewModel.getRestaurantByRestaurantId(arguments?.getInt(RESTAURANT_ID)?: 0)
+        restaurantViewModel.getRestaurantByRestaurantId(arguments?.getLong(RESTAURANT_ID)?: 0)
     }
 
     private fun setUpView() {

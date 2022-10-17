@@ -48,7 +48,7 @@ class MealListFragment : Fragment() {
     private fun setUpObserver(){
         mealViewModel.mealLiveData.observe(viewLifecycleOwner){
             binding.rvMealItemList.adapter = MealListAdapter(
-                mealViewModel, it.meals ,this)
+                mealViewModel, it.meals ,this.requireContext())
         }
     }
 

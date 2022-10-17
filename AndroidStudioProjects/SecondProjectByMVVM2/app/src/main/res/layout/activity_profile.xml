@@ -84,9 +84,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/name"
             android:id="@+id/edit_name"
             android:fontFamily="casual"
+            android:textColorHint="@color/black"
             android:hint="@string/name" />
 
         <TextView
@@ -95,7 +95,6 @@
             android:layout_gravity="top"
             android:fontFamily="casual"
             android:gravity="center|start"
-            android:text="@string/email"
             style="@style/TextMealName"
             android:layout_marginTop="@dimen/_15dp"
             android:textColor="@color/black"
@@ -105,7 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edit_email"
-            android:text="@string/email"
+            android:textColorHint="@color/black"
             android:fontFamily="casual"
             android:hint="@string/email" />
 
@@ -153,7 +152,6 @@
             android:layout_gravity="top"
             android:fontFamily="casual"
             android:gravity="center|start"
-            android:text="@string/mobile"
             style="@style/TextMealName"
             android:layout_marginTop="@dimen/_15dp"
             android:textColor="@color/black"
@@ -177,24 +175,13 @@
                 android:id="@+id/edit_mobile"
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingBottom="@dimen/_10dp"
-                tools:text="@string/number"
                 android:textSize="@dimen/_15sp"
+                android:hint="@string/mobile"
+                android:textColorHint="@color/black"
                 android:textColor="@color/black"
                 app:drawableEndCompat="@drawable/ic_baseline_edit_24" />
         </LinearLayout>
 
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:fontFamily="casual"
-            android:gravity="center|start"
-            android:text="@string/address"
-            style="@style/TextMealName"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
 
 
         <com.google.android.material.button.MaterialButton

@@ -1,20 +1,23 @@
 package com.example.secondprojectbymvvm.view.checkout.order
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.ItemViewOrderBinding
-import com.example.secondprojectbymvvm.model.data.order.Order
+import com.example.secondprojectbymvvm.model.local.dao.ItemDao
+import com.example.secondprojectbymvvm.model.local.entities.Order
+import com.example.secondprojectbymvvm.model.local.AppDatabase
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity
-import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutSummaryFragment
-import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutSummaryFragment.Companion.BILL_TOTAL
 import com.example.secondprojectbymvvm.view.checkout.order.orderdetails.OrderDetailsFragment
+import com.example.secondprojectbymvvm.view.foodtracking.GetCurrentDeliveryLocationActivity
 import com.example.secondprojectbymvvm.viewmodel.CheckoutViewModel
 
 class OrderAdapter(
@@ -27,12 +30,16 @@ class OrderAdapter(
     private lateinit var binding:ItemViewOrderBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
+    private lateinit var appDatabase: AppDatabase
+    private lateinit var itemDao: ItemDao
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         binding = ItemViewOrderBinding.inflate(layoutInflater, parent, false)
         sharedPreferences = context.getSharedPreferences(LoginActivity.Account_Information, AppCompatActivity.MODE_PRIVATE)
         editor = sharedPreferences.edit()
+        appDatabase = AppDatabase.getInstance(context)
+        itemDao = appDatabase.getItemDao()
         return OrderViewHolder(binding.root)
     }
 
@@ -45,16 +52,16 @@ class OrderAdapter(
     }
     inner class OrderViewHolder(view: View):RecyclerView.ViewHolder(view) {
         fun bind(order: Order) {
-            binding.txtOrderId.text = order.orderId.toString()
+            binding.txtOrderAddressTitle.text = order.addressTitle
             binding.txtOrderDate.text = order.order_date
-            binding.txtOrderAmount.text = order.bill_amount
+            binding.txtOrderAmountValue.text = order.bill_amount.toString()
+            binding.txtOrderStatus.text = order.order_status
 
             itemView.setOnClickListener { p0 ->
                 val activity = p0!!.context as AppCompatActivity
                 val orderDetailsFragment = OrderDetailsFragment()
                 val bundle = Bundle()
-                val orderId = order.orderId
-                bundle.putInt(ORDER_ID, orderId)
+                bundle.putParcelable(ORDER, order)
                 orderDetailsFragment.arguments = bundle
                 activity.supportFragmentManager
                     .beginTransaction()
@@ -62,9 +69,21 @@ class OrderAdapter(
                     .addToBackStack(null)
                     .commit()
             }
+
+            binding.btnTrackOrder.setOnClickListener {
+                val intent = Intent(context, GetCurrentDeliveryLocationActivity::class.java)
+                context.startActivity(intent)
+
+            }
+            val itemList = itemDao.getItemByOrderId(order.orderId).value
+            if(itemList != null){
+                binding.rvOrderListItem.adapter = OrderItemAdapter(itemList, context)
+                binding.rvOrderListItem.layoutManager = LinearLayoutManager(context)
+            }
         }
     }
     companion object{
         const val ORDER_ID = "order_Id"
+        const val ORDER = "order"
     }
 }

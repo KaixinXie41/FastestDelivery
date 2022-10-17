@@ -72,4 +72,21 @@
         <item name="android:textColor">#000</item>
     </style>
 
+    <style name="NavigationDrawerStyle">
+
+        <item name="android:textSize">@dimen/_30sp</item><!-- text size in menu-->
+
+        <!-- item size in menu-->
+        <item name="android:listPreferredItemHeightSmall">@dimen/_40dp</item>
+        <item name="listPreferredItemHeightSmall">@dimen/_40dp</item>
+
+        <!-- item padding left in menu-->
+        <item name="android:listPreferredItemPaddingLeft">@dimen/_15dp</item>
+        <item name="listPreferredItemPaddingLeft">@dimen/_15dp</item>
+
+        <!-- item padding right in menu-->
+        <item name="android:listPreferredItemPaddingRight">@dimen/_15dp</item>
+        <item name="listPreferredItemPaddingRight">@dimen/_15dp</item>
+    </style>
+
 </resources>

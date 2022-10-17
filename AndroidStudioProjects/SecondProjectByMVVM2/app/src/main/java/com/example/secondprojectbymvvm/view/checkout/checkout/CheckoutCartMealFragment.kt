@@ -9,9 +9,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.secondprojectbymvvm.databinding.FragmentCheckoutCartMealBinding
-import com.example.secondprojectbymvvm.model.local.address.AppDatabase
-import com.example.secondprojectbymvvm.model.local.cart.Cart
-import com.example.secondprojectbymvvm.model.local.cart.CartDao
+import com.example.secondprojectbymvvm.model.local.AppDatabase
+import com.example.secondprojectbymvvm.model.local.entities.Cart
+import com.example.secondprojectbymvvm.model.local.dao.CartDao
 import com.example.secondprojectbymvvm.viewmodel.CheckoutViewModel
 
 class CheckoutCartMealFragment : Fragment() {

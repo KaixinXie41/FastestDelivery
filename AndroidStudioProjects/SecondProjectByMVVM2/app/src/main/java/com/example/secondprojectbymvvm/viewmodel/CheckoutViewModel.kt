@@ -4,36 +4,89 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.secondprojectbymvvm.model.data.order.Order
-import com.example.secondprojectbymvvm.model.data.order.OrderRepository
-import com.example.secondprojectbymvvm.model.local.address.Address
-import com.example.secondprojectbymvvm.model.local.address.AddressRepository
-import com.example.secondprojectbymvvm.model.local.cart.Cart
-import com.example.secondprojectbymvvm.model.local.cart.CartRepository
-import com.example.secondprojectbymvvm.model.local.restaurant.Restaurant
-import com.example.secondprojectbymvvm.model.local.restaurant.RestaurantRepository
+import androidx.lifecycle.viewModelScope
+import com.example.secondprojectbymvvm.model.local.entities.Item
+import com.example.secondprojectbymvvm.model.local.entities.Order
+import com.example.secondprojectbymvvm.model.local.repository.OrderRepository
+import com.example.secondprojectbymvvm.model.local.AppDatabase
+import com.example.secondprojectbymvvm.model.local.entities.Address
+import com.example.secondprojectbymvvm.model.local.repository.AddressRepository
+import com.example.secondprojectbymvvm.model.local.entities.Cart
+import com.example.secondprojectbymvvm.model.local.repository.CartRepository
+import com.example.secondprojectbymvvm.model.local.entities.Favorite
+import com.example.secondprojectbymvvm.model.local.repository.FavoriteRepository
+import com.example.secondprojectbymvvm.model.local.entities.Restaurant
+import com.example.secondprojectbymvvm.model.local.repository.RestaurantRepository
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 
 class CheckoutViewModel(application: Application): AndroidViewModel(application) {
+    private val appDatabase = AppDatabase.getInstance(application)
     private val orderRepository: OrderRepository = OrderRepository(application)
     private val cartRepository: CartRepository = CartRepository(application)
     private val addressRepository: AddressRepository = AddressRepository(application)
     private val restaurantRepository: RestaurantRepository = RestaurantRepository(application)
+    private val favoriteRepository: FavoriteRepository = FavoriteRepository(application)
+
 
 
     val allOrder: LiveData<List<Order>> = orderRepository.allOrder
     val allRestaurant: LiveData<List<Restaurant>> = restaurantRepository.allRestaurant
     val allCart: LiveData<List<Cart>> = cartRepository.allCart
     val allAddress: LiveData<List<Address>> = addressRepository.allAddress
+    val allFavorite: LiveData<List<Favorite>> = favoriteRepository.allFavorite
+    val allItem:LiveData<List<Item>> = appDatabase.getItemDao().getAllItem()
+
+    val id =MutableLiveData<Long>()
+    val msg = MutableLiveData<String>()
+
+    val items = appDatabase.getItemDao()
+    //Items
+    fun addItem(item: Item){
+        viewModelScope.launch(IO){
+            val itemId:Long = appDatabase.getItemDao().insert(item)
+            id.postValue(itemId)
+        }
+    }
+
+    fun deleteItem(item: Item) {
+        viewModelScope.launch(IO) {
+            val deleteOrder = appDatabase.getItemDao().delete(item)
+            if(deleteOrder > 0 ){
+                msg.postValue("the order id: ${item.itemId} is deleted")
+            }else {
+                msg.postValue("Failed to delete order")
+            }
+        }
+    }
+    fun getItemByOrderId(orderId: Long){
+        appDatabase.getItemDao().getItemByOrderId(orderId)
+    }
+
 
 
     //Order
-    fun addOrder(order: Order) {
-        orderRepository.insert(order)
+    fun addOrder(order: Order) :Long{
+        var orderId: Long =0
+        viewModelScope.launch(IO) {
+            orderId = appDatabase.getOrderDao().insert(order)
+            id.postValue(orderId)
+        }
+        return orderId
     }
+
     fun removeOrder(order: Order) {
-        orderRepository.delete(order)
+        viewModelScope.launch(IO) {
+            val deleteOrder = appDatabase.getOrderDao().delete(order)
+            if(deleteOrder > 0 ){
+                msg.postValue("the order id: ${order.orderId} is deleted")
+            }else {
+                msg.postValue("Failed to delete order")
+            }
+        }
     }
-    fun getOrderByOrderId(orderId: Int) {
+
+    fun getOrderByOrderId(orderId: Long) {
         orderRepository.getOrderByOrderId(orderId)
     }
 
@@ -50,7 +103,7 @@ class CheckoutViewModel(application: Application): AndroidViewModel(application)
         restaurantRepository.update(restaurant)
     }
 
-    fun getRestaurantByRestaurantId(resId: Int) {
+    fun getRestaurantByRestaurantId(resId: Long) {
         restaurantRepository.getRestaurantById(resId)
     }
 
@@ -76,29 +129,48 @@ class CheckoutViewModel(application: Application): AndroidViewModel(application)
         totalAmount.postValue(total)
     }
 
-        fun getCartByCartId(cartId: Int) {
-            cartRepository.getCartMealByCartId(cartId)
-        }
-
-        fun getCartByMealId(mealId: String) {
-            cartRepository.getCartMealByMealId(mealId)
-        }
-
-        //Address
-
-        fun addAddress(address: Address) {
-            addressRepository.insert(address)
-        }
-
-        fun removeAddress(address: Address) {
-            addressRepository.delete(address)
-        }
-
-        fun updateAddress(address: Address) {
-            addressRepository.update(address)
-        }
-
-        fun getAddressByAddressId(addressId: Int) {
-            addressRepository.getAddressByAddressId(addressId)
-        }
+    fun getCartByCartId(cartId: Long) {
+        cartRepository.getCartMealByCartId(cartId)
     }
+
+    fun getCartByMealId(mealId: String) {
+        cartRepository.getCartMealByMealId(mealId)
+    }
+
+    //Address
+
+    fun addAddress(address: Address) {
+        addressRepository.insert(address)
+    }
+
+    fun removeAddress(address: Address) {
+        addressRepository.delete(address)
+    }
+
+    fun updateAddress(address: Address) {
+        addressRepository.update(address)
+    }
+
+    fun getAddressByAddressId(addressId: Long) {
+        addressRepository.getAddressByAddressId(addressId)
+    }
+
+
+    //Favorite
+
+    fun addFavorite(favorite: Favorite) {
+        favoriteRepository.insert(favorite)
+    }
+
+    fun deleteFavorite(favorite: Favorite) {
+        favoriteRepository.delete(favorite)
+    }
+
+    fun updateFavorite(favorite: Favorite) {
+        favoriteRepository.update(favorite)
+    }
+
+    fun getFavoriteByUserId(userId:Int) {
+        favoriteRepository.getFavoriteByUserId(userId)
+    }
+}

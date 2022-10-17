@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.secondprojectbymvvm.databinding.ItemViewRestaurantBinding
-import com.example.secondprojectbymvvm.model.local.address.AppDatabase
-import com.example.secondprojectbymvvm.model.local.restaurant.Restaurant
-import com.example.secondprojectbymvvm.model.local.restaurant.RestaurantDao
+import com.example.secondprojectbymvvm.model.local.AppDatabase
+import com.example.secondprojectbymvvm.model.local.entities.Restaurant
+import com.example.secondprojectbymvvm.model.local.dao.RestaurantDao
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity
 import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutDeliveryFragment
 import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutSummaryFragment
@@ -25,7 +25,7 @@ class PickUpAdapter(
     :RecyclerView.Adapter<PickUpAdapter.RestaurantViewHolder>(){
 
     private lateinit var binding : ItemViewRestaurantBinding
-    private lateinit var appDatabase:AppDatabase
+    private lateinit var appDatabase: AppDatabase
     private lateinit var restaurantDao: RestaurantDao
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
@@ -52,7 +52,7 @@ class PickUpAdapter(
                 val checkoutSummaryFragment = CheckoutSummaryFragment()
                 val bundle = Bundle()
                 val restaurantId = restaurant.resId
-                bundle.putInt(RESTAURANT_ID, restaurantId)
+                bundle.putLong(RESTAURANT_ID, restaurantId)
                 pickUpFragment.arguments = bundle
                 checkoutSummaryFragment.arguments = bundle
             }

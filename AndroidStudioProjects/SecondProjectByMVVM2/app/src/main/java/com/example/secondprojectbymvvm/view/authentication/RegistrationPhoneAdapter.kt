@@ -8,7 +8,7 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.secondprojectbymvvm.R
-import com.example.secondprojectbymvvm.model.data.Phone
+import com.example.secondprojectbymvvm.model.local.entities.Phone
 
 class RegistrationPhoneAdapter(
     private val arrayList: ArrayList<Phone>)

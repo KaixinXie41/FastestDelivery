@@ -21,6 +21,7 @@ import com.example.secondprojectbymvvm.view.authentication.ProfileActivity
 import com.example.secondprojectbymvvm.view.checkout.CartFragment
 import com.example.secondprojectbymvvm.view.checkout.order.OrderFragment
 import com.example.secondprojectbymvvm.view.homepage.other.AboutMeActivity
+import com.example.secondprojectbymvvm.view.homepage.other.FavoriteActivity
 import com.example.secondprojectbymvvm.view.homepage.other.RatingActivity
 import com.example.secondprojectbymvvm.view.homepage.search.SearchByAreaFragment
 import com.example.secondprojectbymvvm.view.homepage.search.SearchByIngredientFragment
@@ -75,9 +76,9 @@ class MainActivity : AppCompatActivity() {
         val userEmail :TextView = navHeader.findViewById(R.id.txt_nv_head_email)
         val userPhone : TextView = navHeader.findViewById(R.id.txt_nv_head_phone)
 
-        userName.text = sharedPreferences.getString(LoginActivity.USER_NAME, LoginActivity.USER_NAME)
+        userName.text = sharedPreferences.getString(LoginActivity.USER_NAME, "")
         userEmail.text = sharedPreferences.getString(LoginActivity.USER_EMAIL, LoginActivity.USER_EMAIL)
-        userPhone.text = sharedPreferences.getString(LoginActivity.USER_MOBILE, LoginActivity.USER_MOBILE)
+        userPhone.text = sharedPreferences.getString(LoginActivity.USER_MOBILE, "")
 
         val navigationView = binding.navView
         navigationView.setNavigationItemSelectedListener { menuItems ->
@@ -91,18 +92,15 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
                 R.id.nav_home_page -> {
-                    val homePageFragment = HomePageFragment()
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.frameLayout_main, homePageFragment)
-                        .addToBackStack(null)
-                        .commit()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
                 R.id.nav_order_page -> {
                     val orderFragment = OrderFragment()
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.frameLayout_main, orderFragment)
+                        .replace(R.id.frameLayout_full, orderFragment)
                         .addToBackStack(null)
                         .commit()
                 }
@@ -131,31 +129,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.btmAppbar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.cart -> {
-                    val cartFragment = CartFragment()
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.frameLayout_main, cartFragment)
-                        .addToBackStack(null)
-                        .commit()
-                }
-                R.id.homePage -> {
-                    val homePageFragment = HomePageFragment()
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.frameLayout_main, homePageFragment)
-                        .addToBackStack(null)
-                        .commit()
-
-                }
-                R.id.order -> {
-                    val orderFragment = OrderFragment()
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.frameLayout_main, orderFragment)
-                        .addToBackStack(null)
-                        .commit()
-                }
                 R.id.supportChat -> {
                     val intent = Intent(this@MainActivity, AboutMeActivity::class.java)
                     startActivity(intent)
@@ -164,8 +137,10 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this@MainActivity, RatingActivity::class.java)
                     startActivity(intent)
                 }
-
-
+                R.id.favorite->{
+                    val intent = Intent(this@MainActivity, FavoriteActivity::class.java)
+                    startActivity(intent)
+                }
             }
             true
         }
@@ -241,7 +216,5 @@ class MainActivity : AppCompatActivity() {
             .add(container, fragment)
             .commit()
     }
-
-
 
 }

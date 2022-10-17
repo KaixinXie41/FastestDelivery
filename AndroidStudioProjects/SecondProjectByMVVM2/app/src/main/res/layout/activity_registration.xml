@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#37C0F9">
+        android:background="@color/yellow">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edtEmail"
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="@string/enter_email"
-            android:textColorHint="@color/white"
+            android:textColorHint="@color/orange_dark"
             android:textSize="@dimen/_25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
             android:gravity="center"
             android:hint="@string/enter_password"
             android:inputType="textPassword"
-            android:textColorHint="@color/white"
+            android:textColorHint="@color/orange_dark"
             android:textSize="@dimen/_25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="@string/enter_phone_number"
-            android:textColorHint="@color/white"
+            android:textColorHint="@color/orange_dark"
             android:textSize="@dimen/_25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="@string/enter_user_name"
-            android:textColorHint="@color/white"
+            android:textColorHint="@color/orange_dark"
             android:textSize="@dimen/_25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +78,7 @@
             android:layout_marginBottom="10dp"
             android:fontFamily="casual"
             android:text="@string/moreOption"
-            android:textColor="@color/black"
+            android:textColor="@color/orange_dark"
             android:textSize="@dimen/_30sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/btnPhone" />
@@ -88,9 +88,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/txt_have_account"
             android:text="@string/have_account"
-            android:textColor="@color/black"
+            android:textColor="@color/orange_dark"
             android:textSize="@dimen/_20sp"
             android:textStyle="bold"
+            android:fontFamily="casual"
             app:layout_constraintTop_toBottomOf="@id/btnRegister"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -103,7 +104,7 @@
             android:layout_width="@dimen/_60dp"
             android:layout_height="@dimen/_60dp"
             android:layout_marginStart="@dimen/_100dp"
-            android:background="@drawable/sms_icon"
+            android:background="@drawable/ic_baseline_phone_android_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -121,7 +122,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="cursive"
             android:text="@string/register_form"
-            android:textColor="@color/white"
+            android:textColor="@color/orange_dark"
             android:textSize="@dimen/_50sp"
             android:layout_marginBottom="@dimen/_150dp"
             app:layout_constraintBottom_toBottomOf="@id/txt_have_account"

@@ -11,13 +11,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.FragmentMealDetailsBinding
-import com.example.secondprojectbymvvm.model.local.address.AppDatabase
-import com.example.secondprojectbymvvm.model.local.cart.Cart
-import com.example.secondprojectbymvvm.model.local.cart.CartDao
+import com.example.secondprojectbymvvm.model.local.AppDatabase
+import com.example.secondprojectbymvvm.model.local.entities.Cart
+import com.example.secondprojectbymvvm.model.local.dao.CartDao
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity
 import com.example.secondprojectbymvvm.view.checkout.CartFragment
-import com.example.secondprojectbymvvm.view.checkout.CartFragment.Companion.CART_ID
+import com.example.secondprojectbymvvm.view.checkout.CartFragment.Companion.CART
 import com.example.secondprojectbymvvm.view.checkout.CartFragmentAdapter.Companion.TOTAL_PRICE
+import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutSummaryFragment
 import com.example.secondprojectbymvvm.view.mealitemlist.MealListAdapter.Companion.MEAL_ID
 import com.example.secondprojectbymvvm.viewmodel.CategoryViewModel
 import kotlin.random.Random
@@ -28,7 +29,7 @@ class MealDetailsFragment : Fragment() {
     private lateinit var mealViewModel : CategoryViewModel
     private lateinit var currentView : View
     private lateinit var appDatabase: AppDatabase
-    private lateinit var cartDao:CartDao
+    private lateinit var cartDao: CartDao
     private var count = 0
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
@@ -67,10 +68,10 @@ class MealDetailsFragment : Fragment() {
 
     private fun setUpObserver(){
         mealViewModel.mealLiveData.observe(viewLifecycleOwner){
-            binding.rvMealDetails.adapter = MealDetailsAdapter(mealViewModel, it.meals ,this)
+            binding.rvMealDetails.adapter = MealDetailsAdapter(mealViewModel, it.meals ,this.requireContext())
             val price = price()
             val total = (count * price).toDouble()
-            val cartItem = Cart(null, it.meals[0].strMeal, it.meals[0].idMeal,price.toDouble(),count,total,it.meals[0].strMealThumb )
+            val cartItem = Cart(0, it.meals[0].strMeal, it.meals[0].idMeal,price.toDouble(),count,total,it.meals[0].strMealThumb, it.meals[0].strCategory )
             binding.btnPlus.setOnClickListener {
                 count++
                 binding.txtMealCount.text = count.toString()
@@ -93,6 +94,10 @@ class MealDetailsFragment : Fragment() {
                 editor.apply()
                 val activity = p0!!.context as AppCompatActivity
                 val cartFragment = CartFragment()
+                val checkoutSummaryFragment = CheckoutSummaryFragment()
+                val bundle = Bundle()
+                bundle.putParcelable(CART,cartItem)
+                checkoutSummaryFragment.arguments = bundle
                 activity.supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.frameLayout_full, cartFragment)

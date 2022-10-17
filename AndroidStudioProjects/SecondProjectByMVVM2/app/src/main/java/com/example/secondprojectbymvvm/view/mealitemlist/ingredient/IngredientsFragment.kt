@@ -44,7 +44,7 @@ class IngredientsFragment : Fragment() {
     private fun setUpObserver(){
         mealViewModel.mealLiveData.observe(viewLifecycleOwner){
             binding.rvIngredientMealList.adapter = IngredientAdapter(
-                mealViewModel, it.meals ,this)
+                mealViewModel, it.meals ,this.requireContext())
         }
     }
 }

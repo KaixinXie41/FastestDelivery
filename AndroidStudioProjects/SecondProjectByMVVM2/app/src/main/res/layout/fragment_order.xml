@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.checkout.order.OrderFragment">
     <androidx.appcompat.widget.AppCompatTextView
@@ -12,6 +13,7 @@
         android:text="@string/order_list"
         style="@style/TextMealNameLarge"
         android:textSize="@dimen/_40sp"
+        android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
     <androidx.recyclerview.widget.RecyclerView
@@ -21,6 +23,7 @@
         tools:listitem="@layout/item_view_order"
         app:layout_constraintTop_toBottomOf="@id/txt_order_title"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

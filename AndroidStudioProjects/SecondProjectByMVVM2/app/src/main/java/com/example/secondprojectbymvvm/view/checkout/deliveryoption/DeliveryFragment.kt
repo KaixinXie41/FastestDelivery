@@ -6,22 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.FragmentDeliveryBinding
-import com.example.secondprojectbymvvm.model.local.address.Address
-import com.example.secondprojectbymvvm.model.local.address.AddressDao
-import com.example.secondprojectbymvvm.model.local.address.AppDatabase
+import com.example.secondprojectbymvvm.model.local.entities.Address
+import com.example.secondprojectbymvvm.model.local.dao.AddressDao
+import com.example.secondprojectbymvvm.model.local.AppDatabase
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity.Companion.Account_Information
-import com.example.secondprojectbymvvm.view.authentication.LoginActivity.Companion.USER_ID
-import com.example.secondprojectbymvvm.view.checkout.CartFragmentAdapter
-import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutDeliveryFragment.Companion.ADDRESS
-import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutDeliveryFragment.Companion.ADDRESS_TITLE
-import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutMealFragment
 import com.example.secondprojectbymvvm.view.checkout.deliveryoption.DeliveryAdapter.Companion.ADDRESS_ID
 import com.example.secondprojectbymvvm.viewmodel.CheckoutViewModel
 
@@ -73,7 +66,7 @@ class DeliveryFragment : Fragment() {
 
     private fun setUpViewModel() {
         addressViewModel = ViewModelProvider(this)[CheckoutViewModel::class.java]
-        addressViewModel.getAddressByAddressId(arguments?.getInt(ADDRESS_ID)?: 0)
+        addressViewModel.getAddressByAddressId(arguments?.getLong(ADDRESS_ID)?: 0)
     }
 
 }

@@ -9,7 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.secondprojectbymvvm.databinding.ActivityLoginBinding
-import com.example.secondprojectbymvvm.model.local.user.User
+import com.example.secondprojectbymvvm.model.local.entities.User
 import com.example.secondprojectbymvvm.view.homepage.home.MainActivity
 import com.example.secondprojectbymvvm.viewmodel.AuthViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -53,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
                 sharePreferences = getSharedPreferences(Account_Information, MODE_PRIVATE)
                 editor = sharePreferences.edit()
                 editor.apply{
-                    putInt(USER_ID, user.userId)
+                    putLong(USER_ID, user.userId)
                     putString(USER_EMAIL, user.email)
                     putString(USER_PASSWORD, user.password)
                     putString(USER_MOBILE, user.mobileNo)

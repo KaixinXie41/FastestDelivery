@@ -24,7 +24,6 @@ import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 
-@RequiresApi(Build.VERSION_CODES.M)
 class GetCurrentDeliveryLocationActivity : AppCompatActivity() {
     private lateinit var binding : ActivityGetCurrentDeliveryLocationBinding
     private val fusedLocationClient: FusedLocationProviderClient by lazy {
@@ -53,10 +52,12 @@ class GetCurrentDeliveryLocationActivity : AppCompatActivity() {
         Snackbar.make(binding.container, R.string.file_location_permission, Snackbar.LENGTH_LONG)
             .setAction(R.string.ok)
             {
-                requestPermissions(
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    REQUEST_FINE_LOCATION_PERMISSION_REQ_CODE
-                )
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    requestPermissions(
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        REQUEST_FINE_LOCATION_PERMISSION_REQ_CODE
+                    )
+                }
             }
     }
 
@@ -102,12 +103,14 @@ class GetCurrentDeliveryLocationActivity : AppCompatActivity() {
         if (permissionApproved) {
             requestCurrentLocation()
         } else {
-            requestPermissionWithRationale(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                REQUEST_FINE_LOCATION_PERMISSION_REQ_CODE,
-                fineLocationRationaleSnackbar,
-                fineLocationRationaleSnackbar
-            )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissionWithRationale(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    REQUEST_FINE_LOCATION_PERMISSION_REQ_CODE,
+                    fineLocationRationaleSnackbar,
+                    fineLocationRationaleSnackbar
+                )
+            }
         }
     }
 

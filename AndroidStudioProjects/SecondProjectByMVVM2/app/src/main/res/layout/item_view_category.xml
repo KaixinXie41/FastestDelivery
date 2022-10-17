@@ -5,7 +5,7 @@
     android:padding="@dimen/_10dp"
     android:layout_margin="@dimen/_10dp"
     app:cardCornerRadius="@dimen/_10dp"
-    app:cardBackgroundColor="@color/lightgreen"
+    app:cardBackgroundColor="@color/orange"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <androidx.constraintlayout.widget.ConstraintLayout

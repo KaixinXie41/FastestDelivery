@@ -130,4 +130,17 @@
     <string name="receiver_message">Receiver Message</string>
     <string name="type_message">Type in Your Meessage</string>
     <string name="send">Send</string>
+    <string name="your_total">Your total amount is</string>
+    <string name="please_scan">Please scan QR Code to finish payment</string>
+    <string name="fresh_live">Fresh Live Maker</string>
+    <string name="favorite_name">Favorite Name</string>
+    <string name="pay">Pay</string>
+    <string name="enter_card_number">Enter Your Card Number</string>
+    <string name="month_years">MM/YY</string>
+    <string name="enter_card_cvv">CVV</string>
+    <string name="order_address_title">Delivery Title</string>
+    <string name="track_order">Track Order</string>
+    <string name="num">2</string>
+    <string name="multiple">X</string>
+    <string name="items">Items</string>
 </resources>

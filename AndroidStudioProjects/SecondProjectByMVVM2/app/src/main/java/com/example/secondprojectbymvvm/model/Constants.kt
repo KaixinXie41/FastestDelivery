@@ -19,5 +19,8 @@ object Constants {
     const val OPEN_ORDER_PAGE = "Opening your order page.."
     const val OPEN_CART_PAGE = "Opening your cart page"
     const val OPEN_RATING_PAGE = "Opening rating page"
+    const val SPLASH_TIME1 :Long = 1000
+    const val SPLASH_TIME2 :Long = 2500
+
 
 }

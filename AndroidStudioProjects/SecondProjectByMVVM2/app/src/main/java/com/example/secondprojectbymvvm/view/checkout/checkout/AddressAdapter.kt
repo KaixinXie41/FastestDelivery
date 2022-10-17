@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.secondprojectbymvvm.databinding.ItemViewAddressBinding
-import com.example.secondprojectbymvvm.model.local.address.Address
+import com.example.secondprojectbymvvm.model.local.entities.Address
 
 class AddressAdapter(
     private val arrayList: List<Address>,

@@ -118,5 +118,6 @@ class SupportChatActivity : AppCompatActivity() {
     companion object{
         const val ORDER_PAGE = "orderPage"
         const val CART_PAGE = "cartPage"
+        const val Delivery_PAGE = "deliverPage"
     }
 }

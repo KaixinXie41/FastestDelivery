@@ -6,17 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.FragmentCheckoutPaymentBinding
-import com.example.secondprojectbymvvm.model.local.address.AppDatabase
-import com.example.secondprojectbymvvm.model.local.cart.CartDao
+import com.example.secondprojectbymvvm.model.local.AppDatabase
+import com.example.secondprojectbymvvm.model.local.dao.CartDao
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity
 
-class CheckoutPaymentFragment : Fragment() {
+class CheckoutPaymentFragment : Fragment(), View.OnClickListener {
 
     private lateinit var binding : FragmentCheckoutPaymentBinding
     private lateinit var sharedPreferences: SharedPreferences
@@ -42,37 +39,87 @@ class CheckoutPaymentFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val group = binding.radioGroupPayment
-        group.setOnCheckedChangeListener { _: RadioGroup,
-                                           _: Int ->
-            val checkRadioButton = group.findViewById<RadioButton>(group.checkedRadioButtonId)
-            checkRadioButton?.let {
-                when (checkRadioButton.id) {
-                    R.id.rtn_cod -> {
-                        editor.putString(PAYMENT,"Cash on Delivery")
-                        editor.apply()
-                    }
-                    R.id.rtn_paypal -> {
-                        editor.putString(PAYMENT,"Paypal" )
-                        editor.apply()
-                    }
-                    R.id.rtn_dc_cc -> {
-                        editor.putString(PAYMENT,"Debit Card or Credit Card" )
-                        editor.apply()
-                    }
-                    R.id.rtn_gift_card -> {
-                        editor.putString(PAYMENT,"Gift Card" )
-                        editor.apply() }
-                    else -> { "Cash on Delivery" }
-                }
+        setListener()
+    }
+
+    private fun setListener() {
+        binding.btnPay.setOnClickListener(this)
+        binding.btnCodPay.setOnClickListener(this)
+        binding.btnGiftPay.setOnClickListener(this)
+        binding.btnPaypalPay.setOnClickListener(this)
+        binding.rtnCod.setOnCheckedChangeListener  { buttonView, isChecked ->
+            if(isChecked){
+                binding.cardViewCashOnDeliveryInfo.visibility = View.VISIBLE
+                binding.rtnDcCc.isChecked = false
+                binding.rtnPaypal.isChecked = false
+                binding.rtnGiftCard.isChecked = false
+                payment = binding.rtnCod.text.toString()
+                editor.putString(PAYMENT,payment)
+                editor.apply()
+            }else{
+                binding.cardViewCashOnDeliveryInfo.visibility = View.GONE
             }
-            binding.paymentBtnNext.setOnClickListener{
-                (this.parentFragment as CheckoutMealFragment).nextPager()
+        }
+        binding.rtnPaypal.setOnCheckedChangeListener  { buttonView, isChecked ->
+            if(isChecked){
+                binding.cardViewPaypalQrCode.visibility = View.VISIBLE
+                binding.rtnDcCc.isChecked = false
+                binding.rtnCod.isChecked = false
+                binding.rtnGiftCard.isChecked = false
+                payment = binding.rtnPaypal.text.toString()
+                editor.putString(PAYMENT,payment)
+                editor.apply()
+            }else{
+                binding.cardViewPaypalQrCode.visibility = View.GONE
+            }
+        }
+        binding.rtnGiftCard.setOnCheckedChangeListener  { buttonView, isChecked ->
+            if(isChecked){
+                binding.cardViewGiftCardInformation.visibility = View.VISIBLE
+                binding.btnGiftPay.visibility = View.VISIBLE
+                binding.rtnDcCc.isChecked = false
+                binding.rtnPaypal.isChecked = false
+                binding.rtnCod.isChecked = false
+                payment = binding.rtnGiftCard.text.toString()
+                editor.putString(PAYMENT,payment)
+                editor.apply()
+            }else{
+                binding.cardViewGiftCardInformation.visibility = View.GONE
+                binding.btnGiftPay.visibility = View.GONE
+
+            }
+        }
+        binding.rtnDcCc.setOnCheckedChangeListener  { buttonView, isChecked ->
+            if(isChecked){
+                binding.cardViewCreditCardInformation.visibility = View.VISIBLE
+                binding.btnPay.visibility = View.VISIBLE
+                binding.rtnCod.isChecked = false
+                binding.rtnPaypal.isChecked = false
+                binding.rtnGiftCard.isChecked = false
+                payment = binding.rtnDcCc.text.toString()
+                editor.putString(PAYMENT,payment)
+                editor.apply()
+            }else{
+                binding.cardViewCreditCardInformation.visibility = View.GONE
+                binding.btnPay.visibility = View.GONE
+
             }
         }
     }
+
     companion object{
         const val PAYMENT ="payment"
+    }
+
+    override fun onClick(p0: View?) {
+        when(p0?.id){
+            R.id.btn_cod_pay,
+            R.id.btn_pay,
+            R.id.btn_paypal_pay,
+            R.id.btn_gift_pay -> {
+                (this.parentFragment as CheckoutMealFragment).nextPager()
+            }
+        }
     }
 
 }
