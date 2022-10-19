@@ -55,7 +55,7 @@ It's a basic function Food Order App which using Api and RoomDataBase under MVVM
 
 #Project Structure 
 
-com.example.shoppingappprject    
+com.example.secondprojectbymvvm    
 
 |—— model
 
@@ -107,6 +107,19 @@ com.example.shoppingappprject
        |—— mealdetails
 
 |—— viewModel
+
+com.example.secondprojectbymvvm(androidTest)
+
+|—— dao
+
+com.example.secondprojectbymvvm(test)
+
+|—— view.authentication
+
+|—— viewModel
+
+
+
 
 
 
