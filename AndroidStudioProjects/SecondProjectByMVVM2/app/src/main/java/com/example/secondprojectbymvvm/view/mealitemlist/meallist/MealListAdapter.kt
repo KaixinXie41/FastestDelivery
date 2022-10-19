@@ -1,4 +1,4 @@
-package com.example.secondprojectbymvvm.view.mealitemlist
+package com.example.secondprojectbymvvm.view.mealitemlist.meallist
 
 import android.content.Context
 import android.content.SharedPreferences

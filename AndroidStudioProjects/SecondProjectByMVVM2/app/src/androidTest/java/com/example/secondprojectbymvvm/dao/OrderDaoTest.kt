@@ -1,4 +1,4 @@
-package com.example.secondprojectbymvvm.DaoTest
+package com.example.secondprojectbymvvm.dao
 
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
@@ -6,7 +6,7 @@ import com.example.secondprojectbymvvm.model.local.AppDatabase
 import com.example.secondprojectbymvvm.model.local.dao.OrderDao
 import com.example.secondprojectbymvvm.model.local.entities.Order
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
@@ -38,8 +38,8 @@ class OrderDaoTest {
             val orderId: Long = orderDao.insert(order)
             val saveItem = orderDao.getOrderByOrderId(orderId)
 
-            Assert.assertNotNull(saveItem)
-            Assert.assertEquals(orderId, saveItem.orderId)
+            assertNotNull(saveItem)
+            assertEquals(orderId, saveItem.orderId)
         }
     }
 
@@ -60,12 +60,12 @@ class OrderDaoTest {
             val orderId: Long = orderDao.insert(order)
             val saveItem = orderDao.getOrderByOrderId(orderId)
 
-            Assert.assertNotNull(saveItem)
-            Assert.assertEquals(orderId, saveItem?.orderId)
+            assertNotNull(saveItem)
+            assertEquals(orderId, saveItem.orderId)
 
-            orderDao.delete(saveItem!!)
+            orderDao.delete(saveItem)
 
-            junit.framework.Assert.assertNull(orderDao.getOrderByOrderId(orderId))
+            assertNull(orderDao.getOrderByOrderId(orderId))
         }
     }
 
@@ -87,12 +87,12 @@ class OrderDaoTest {
             val saveItem = orderDao.getOrderByOrderId(orderId)
             val newAddressTitle = "Office"
 
-            saveItem?.addressTitle = newAddressTitle
-            orderDao.update(saveItem!!)
+            saveItem.addressTitle = newAddressTitle
+            orderDao.update(saveItem)
 
             val updateNote = orderDao.getOrderByOrderId(orderId)
 
-            junit.framework.Assert.assertEquals(saveItem.addressTitle, updateNote?.addressTitle)
+            assertEquals(saveItem.addressTitle, updateNote.addressTitle)
         }
     }
 }

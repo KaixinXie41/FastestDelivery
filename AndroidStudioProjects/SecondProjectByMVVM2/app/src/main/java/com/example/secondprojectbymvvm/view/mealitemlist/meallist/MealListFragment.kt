@@ -1,4 +1,4 @@
-package com.example.secondprojectbymvvm.view.mealitemlist
+package com.example.secondprojectbymvvm.view.mealitemlist.meallist
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.secondprojectbymvvm.databinding.FragmentMealListBinding
+import com.example.secondprojectbymvvm.model.ApiService
+import com.example.secondprojectbymvvm.model.data.category.CategoryRepository
 import com.example.secondprojectbymvvm.model.data.meal.Meal
-import com.example.secondprojectbymvvm.view.homepage.search.SearchFragment
 import com.example.secondprojectbymvvm.view.homepage.search.SearchFragment.Companion.SEARCH_TEXT
 import com.example.secondprojectbymvvm.viewmodel.CategoryViewModel
+import com.example.secondprojectbymvvm.viewmodel.CategoryViewModelProvider
 
 class MealListFragment : Fragment() {
 
@@ -36,7 +38,9 @@ class MealListFragment : Fragment() {
 
 
     private fun setUpViewModel() {
-        mealViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
+        val repository = CategoryRepository(ApiService.getInstance())
+        val factory = CategoryViewModelProvider(repository)
+        mealViewModel = ViewModelProvider(this,factory)[CategoryViewModel::class.java]
         mealViewModel.searchByMealName(arguments?.getString(SEARCH_TEXT) ?: "" )
     }
 

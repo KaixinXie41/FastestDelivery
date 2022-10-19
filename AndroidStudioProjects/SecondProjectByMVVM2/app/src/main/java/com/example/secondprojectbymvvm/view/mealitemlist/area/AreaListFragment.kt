@@ -8,8 +8,11 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.secondprojectbymvvm.databinding.FragmentAreaListBinding
+import com.example.secondprojectbymvvm.model.ApiService
+import com.example.secondprojectbymvvm.model.data.category.CategoryRepository
 import com.example.secondprojectbymvvm.view.homepage.search.SearchByAreaFragment
 import com.example.secondprojectbymvvm.viewmodel.CategoryViewModel
+import com.example.secondprojectbymvvm.viewmodel.CategoryViewModelProvider
 
 class AreaListFragment : Fragment() {
 
@@ -32,7 +35,9 @@ class AreaListFragment : Fragment() {
 
 
     private fun setUpViewModel() {
-        mealViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
+        val repository = CategoryRepository(ApiService.getInstance())
+        val factory = CategoryViewModelProvider(repository)
+        mealViewModel = ViewModelProvider(this,factory)[CategoryViewModel::class.java]
         mealViewModel.searchByMealArea(arguments?.getString(SearchByAreaFragment.SEARCH_TEXT) ?: "")
     }
 

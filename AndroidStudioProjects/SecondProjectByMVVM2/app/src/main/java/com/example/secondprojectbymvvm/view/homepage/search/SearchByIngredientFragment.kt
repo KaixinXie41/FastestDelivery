@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.FragmentSearchByIngredientBinding
-import com.example.secondprojectbymvvm.view.mealitemlist.MealListFragment
+import com.example.secondprojectbymvvm.model.ApiService
+import com.example.secondprojectbymvvm.model.data.category.CategoryRepository
 import com.example.secondprojectbymvvm.view.mealitemlist.ingredient.IngredientsFragment
 import com.example.secondprojectbymvvm.viewmodel.CategoryViewModel
+import com.example.secondprojectbymvvm.viewmodel.CategoryViewModelProvider
 
 class SearchByIngredientFragment : Fragment() {
     private lateinit var binding: FragmentSearchByIngredientBinding
@@ -54,7 +56,9 @@ class SearchByIngredientFragment : Fragment() {
     }
 
     private fun setUpViewModel() {
-        searchViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
+        val repository = CategoryRepository(ApiService.getInstance())
+        val factory = CategoryViewModelProvider(repository)
+        searchViewModel = ViewModelProvider(this,factory)[CategoryViewModel::class.java]
     }
 
     companion object{

@@ -1,14 +1,12 @@
-package com.example.secondprojectbymvvm.DaoTest
+package com.example.secondprojectbymvvm.dao
 
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.secondprojectbymvvm.model.local.AppDatabase
-import com.example.secondprojectbymvvm.model.local.dao.AddressDao
 import com.example.secondprojectbymvvm.model.local.dao.RestaurantDao
-import com.example.secondprojectbymvvm.model.local.entities.Address
 import com.example.secondprojectbymvvm.model.local.entities.Restaurant
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
@@ -31,8 +29,8 @@ class RestaurantDaoTest {
         val restaurantId = restaurantDao.insert(restaurant)
         val saveItem = restaurantDao.getRestaurantById(restaurantId)
 
-        Assert.assertNotNull(saveItem)
-        Assert.assertEquals(restaurantId, saveItem.resId)
+        assertNotNull(saveItem)
+        assertEquals(restaurantId, saveItem.resId)
     }
 
 
@@ -44,12 +42,12 @@ class RestaurantDaoTest {
         val restaurantId = restaurantDao.insert(restaurant)
         val saveItem = restaurantDao.getRestaurantById(restaurantId)
 
-        Assert.assertNotNull(saveItem)
-        Assert.assertEquals(restaurantId, saveItem?.resId)
+        assertNotNull(saveItem)
+        assertEquals(restaurantId, saveItem.resId)
 
-        restaurantDao.delete(saveItem!!)
+        restaurantDao.delete(saveItem)
 
-        junit.framework.Assert.assertNull(restaurantDao.getRestaurantById(restaurantId))
+        assertNull(restaurantDao.getRestaurantById(restaurantId))
     }
 
     @Test
@@ -62,12 +60,12 @@ class RestaurantDaoTest {
             val saveItem = restaurantDao.getRestaurantById(restaurantId)
             val newRestaurantName = "Pizza Hut"
 
-            saveItem?.res_name = newRestaurantName
-            restaurantDao.update(saveItem!!)
+            saveItem.res_name = newRestaurantName
+            restaurantDao.update(saveItem)
 
             val updateNote = restaurantDao.getRestaurantById(restaurantId)
 
-            junit.framework.Assert.assertEquals(saveItem.res_name, updateNote?.res_name)
+            assertEquals(saveItem.res_name, updateNote.res_name)
         }
     }
 }

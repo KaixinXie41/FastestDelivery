@@ -1,20 +1,18 @@
 package com.example.secondprojectbymvvm.view.homepage.search
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.example.secondprojectbymvvm.R
-import com.example.secondprojectbymvvm.databinding.FragmentMealListBinding
 import com.example.secondprojectbymvvm.databinding.FragmentSearchBinding
-import com.example.secondprojectbymvvm.model.data.meal.Meal
+import com.example.secondprojectbymvvm.model.ApiService
+import com.example.secondprojectbymvvm.model.data.category.CategoryRepository
 import com.example.secondprojectbymvvm.model.data.meal.MealResponse
-import com.example.secondprojectbymvvm.view.mealitemlist.MealListFragment
+import com.example.secondprojectbymvvm.view.mealitemlist.meallist.MealListFragment
 import com.example.secondprojectbymvvm.viewmodel.CategoryViewModel
-import com.google.android.gms.dynamic.SupportFragmentWrapper
+import com.example.secondprojectbymvvm.viewmodel.CategoryViewModelProvider
 
 class SearchFragment : Fragment() {
 
@@ -61,7 +59,9 @@ class SearchFragment : Fragment() {
     }
 
     private fun setUpViewModel() {
-        searchViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
+        val repository = CategoryRepository(ApiService.getInstance())
+        val factory = CategoryViewModelProvider(repository)
+        searchViewModel = ViewModelProvider(this,factory)[CategoryViewModel::class.java]
     }
 
     companion object{

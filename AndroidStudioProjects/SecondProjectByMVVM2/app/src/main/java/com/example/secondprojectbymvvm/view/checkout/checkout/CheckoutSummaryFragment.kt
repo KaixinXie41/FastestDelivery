@@ -27,8 +27,8 @@ import com.example.secondprojectbymvvm.model.local.dao.CartDao
 import com.example.secondprojectbymvvm.model.local.AppDatabase
 import com.example.secondprojectbymvvm.model.local.entities.Cart
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity
-import com.example.secondprojectbymvvm.view.checkout.CartFragment.Companion.CART
-import com.example.secondprojectbymvvm.view.checkout.CartFragmentAdapter.Companion.TOTAL_PRICE
+import com.example.secondprojectbymvvm.view.checkout.cart.CartFragment.Companion.CART
+import com.example.secondprojectbymvvm.view.checkout.cart.CartFragmentAdapter.Companion.TOTAL_PRICE
 import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutDeliveryFragment.Companion.ADDRESS
 import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutDeliveryFragment.Companion.ADDRESS_TITLE
 import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutDeliveryFragment.Companion.Delivery_TYPE

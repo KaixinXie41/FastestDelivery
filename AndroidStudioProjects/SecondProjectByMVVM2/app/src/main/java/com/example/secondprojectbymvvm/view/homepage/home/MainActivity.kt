@@ -1,13 +1,11 @@
 package com.example.secondprojectbymvvm.view.homepage.home
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -18,7 +16,7 @@ import com.example.secondprojectbymvvm.view.authentication.EntryActivity
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity.Companion.USER_ID
 import com.example.secondprojectbymvvm.view.authentication.ProfileActivity
-import com.example.secondprojectbymvvm.view.checkout.CartFragment
+import com.example.secondprojectbymvvm.view.checkout.cart.CartFragment
 import com.example.secondprojectbymvvm.view.checkout.order.OrderFragment
 import com.example.secondprojectbymvvm.view.homepage.other.AboutMeActivity
 import com.example.secondprojectbymvvm.view.homepage.other.FavoriteActivity

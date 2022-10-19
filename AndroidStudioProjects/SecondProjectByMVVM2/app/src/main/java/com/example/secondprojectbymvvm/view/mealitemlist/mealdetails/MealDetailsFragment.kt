@@ -11,16 +11,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.FragmentMealDetailsBinding
+import com.example.secondprojectbymvvm.model.ApiService
+import com.example.secondprojectbymvvm.model.data.category.CategoryRepository
 import com.example.secondprojectbymvvm.model.local.AppDatabase
 import com.example.secondprojectbymvvm.model.local.entities.Cart
 import com.example.secondprojectbymvvm.model.local.dao.CartDao
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity
-import com.example.secondprojectbymvvm.view.checkout.CartFragment
-import com.example.secondprojectbymvvm.view.checkout.CartFragment.Companion.CART
-import com.example.secondprojectbymvvm.view.checkout.CartFragmentAdapter.Companion.TOTAL_PRICE
+import com.example.secondprojectbymvvm.view.checkout.cart.CartFragment
+import com.example.secondprojectbymvvm.view.checkout.cart.CartFragment.Companion.CART
+import com.example.secondprojectbymvvm.view.checkout.cart.CartFragmentAdapter.Companion.TOTAL_PRICE
 import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutSummaryFragment
-import com.example.secondprojectbymvvm.view.mealitemlist.MealListAdapter.Companion.MEAL_ID
+import com.example.secondprojectbymvvm.view.mealitemlist.meallist.MealListAdapter.Companion.MEAL_ID
 import com.example.secondprojectbymvvm.viewmodel.CategoryViewModel
+import com.example.secondprojectbymvvm.viewmodel.CategoryViewModelProvider
 import kotlin.random.Random
 
 class MealDetailsFragment : Fragment() {
@@ -62,7 +65,9 @@ class MealDetailsFragment : Fragment() {
     }
 
     private fun setUpViewModel() {
-        mealViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
+        val repository = CategoryRepository(ApiService.getInstance())
+        val factory = CategoryViewModelProvider(repository)
+        mealViewModel = ViewModelProvider(this,factory)[CategoryViewModel::class.java]
         mealViewModel.searchByMealId(arguments?.getString(MEAL_ID) ?: "" )
     }
 

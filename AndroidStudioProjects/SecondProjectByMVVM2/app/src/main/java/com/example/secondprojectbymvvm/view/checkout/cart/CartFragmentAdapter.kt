@@ -1,4 +1,4 @@
-package com.example.secondprojectbymvvm.view.checkout
+package com.example.secondprojectbymvvm.view.checkout.cart
 
 import android.content.Context
 import android.os.Bundle
@@ -12,7 +12,7 @@ import com.example.secondprojectbymvvm.databinding.ItemViewCartBinding
 import com.example.secondprojectbymvvm.model.local.AppDatabase
 import com.example.secondprojectbymvvm.model.local.entities.Cart
 import com.example.secondprojectbymvvm.model.local.dao.CartDao
-import com.example.secondprojectbymvvm.view.mealitemlist.MealListAdapter.Companion.MEAL_ID
+import com.example.secondprojectbymvvm.view.mealitemlist.meallist.MealListAdapter.Companion.MEAL_ID
 import com.example.secondprojectbymvvm.view.mealitemlist.mealdetails.MealDetailsFragment
 import com.example.secondprojectbymvvm.viewmodel.CheckoutViewModel
 

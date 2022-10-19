@@ -10,8 +10,11 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.lifecycle.ViewModelProvider
 import com.example.secondprojectbymvvm.databinding.FragmentYoutubeBinding
+import com.example.secondprojectbymvvm.model.ApiService
+import com.example.secondprojectbymvvm.model.data.category.CategoryRepository
 import com.example.secondprojectbymvvm.view.mealitemlist.mealdetails.MealDetailsAdapter.Companion.YOUTUBE_URL
 import com.example.secondprojectbymvvm.viewmodel.CategoryViewModel
+import com.example.secondprojectbymvvm.viewmodel.CategoryViewModelProvider
 
 class YoutubeFragment : Fragment() {
 
@@ -47,6 +50,8 @@ class YoutubeFragment : Fragment() {
     }
 
     private fun setUpViewModel() {
-        mealViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
+        val repository = CategoryRepository(ApiService.getInstance())
+        val factory = CategoryViewModelProvider(repository)
+        mealViewModel = ViewModelProvider(this,factory)[CategoryViewModel::class.java]
     }
 }

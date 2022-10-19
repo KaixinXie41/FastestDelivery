@@ -9,10 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.FragmentCheckoutPaymentQRCodeBinding
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity
-import com.example.secondprojectbymvvm.view.checkout.CartFragmentAdapter.Companion.TOTAL_PRICE
+import com.example.secondprojectbymvvm.view.checkout.cart.CartFragmentAdapter.Companion.TOTAL_PRICE
 
 class CheckoutPaymentQRCodeFragment : Fragment() {
 

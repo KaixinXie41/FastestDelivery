@@ -4,15 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.ActivitySupportChatBinding
 import com.example.secondprojectbymvvm.model.Constants.OPEN_CART_PAGE
 import com.example.secondprojectbymvvm.model.Constants.OPEN_ORDER_PAGE
 import com.example.secondprojectbymvvm.model.Constants.OPEN_RATING_PAGE
 import com.example.secondprojectbymvvm.model.Constants.RECEIVE_ID
 import com.example.secondprojectbymvvm.model.Constants.SEND_ID
-import com.example.secondprojectbymvvm.view.checkout.CartFragment
-import com.example.secondprojectbymvvm.view.checkout.order.OrderFragment
 import com.example.secondprojectbymvvm.view.homepage.home.MainActivity
 import com.example.secondprojectbymvvm.view.homepage.other.RatingActivity
 import com.example.secondprojectbymvvm.view.supportChat.data.Message

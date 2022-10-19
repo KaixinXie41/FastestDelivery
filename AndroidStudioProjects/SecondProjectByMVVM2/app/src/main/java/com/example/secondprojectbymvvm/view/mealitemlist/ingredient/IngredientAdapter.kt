@@ -20,7 +20,7 @@ import com.example.secondprojectbymvvm.model.local.entities.Favorite
 import com.example.secondprojectbymvvm.model.local.dao.FavoriteDao
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity
 import com.example.secondprojectbymvvm.view.mealitemlist.mealdetails.MealDetailsFragment
-import com.example.secondprojectbymvvm.view.mealitemlist.MealListAdapter.Companion.MEAL_ID
+import com.example.secondprojectbymvvm.view.mealitemlist.meallist.MealListAdapter.Companion.MEAL_ID
 import com.example.secondprojectbymvvm.viewmodel.CategoryViewModel
 
 class IngredientAdapter(

@@ -10,8 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.secondprojectbymvvm.R
 import com.example.secondprojectbymvvm.databinding.FragmentHomePageBinding
+import com.example.secondprojectbymvvm.model.ApiService
+import com.example.secondprojectbymvvm.model.data.category.CategoryRepository
 import com.example.secondprojectbymvvm.model.local.entities.Offer
 import com.example.secondprojectbymvvm.viewmodel.CategoryViewModel
+import com.example.secondprojectbymvvm.viewmodel.CategoryViewModelProvider
 
 class HomePageFragment : Fragment() {
 
@@ -53,7 +56,9 @@ class HomePageFragment : Fragment() {
     }
 
     private fun setUpViewModel() {
-        categoryViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
+        val repository = CategoryRepository(ApiService.getInstance())
+        val factory = CategoryViewModelProvider(repository)
+        categoryViewModel = ViewModelProvider(this, factory)[CategoryViewModel::class.java]
         categoryViewModel.getAllCategory()
     }
 

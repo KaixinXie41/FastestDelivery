@@ -10,12 +10,13 @@ import com.example.secondprojectbymvvm.model.data.category.CategoryResponse
 import com.example.secondprojectbymvvm.model.data.meal.MealResponse
 import io.reactivex.Observable
 import io.reactivex.Single
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
     @GET(LIST_ALL_MEAL_CATEGORY)
-    fun getCategoryInfo(): Single<CategoryResponse>
+    suspend fun getCategoryInfo(): Response<CategoryResponse>
 
     @GET(SEARCH_MEAL_BY_NAME)
     fun searchByMealName(
@@ -41,4 +42,8 @@ interface ApiService {
     fun searchByMealCategory(
         @Query("c")message: String
     ):Single<MealResponse>
+
+    companion object{
+        fun getInstance() = ApiClient.getRetrofit().create(ApiService::class.java)
+    }
 }

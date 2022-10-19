@@ -1,13 +1,12 @@
-package com.example.secondprojectbymvvm.DaoTest
+package com.example.secondprojectbymvvm.dao
 
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.secondprojectbymvvm.model.local.AppDatabase
 import com.example.secondprojectbymvvm.model.local.dao.ItemDao
 import com.example.secondprojectbymvvm.model.local.entities.Item
-import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
@@ -38,8 +37,8 @@ class ItemDaoTest {
             val itemId: Long = itemDao.insert(item)
             val saveItem = itemDao.getItemByItemId(itemId)
 
-            Assert.assertNotNull(saveItem)
-            Assert.assertEquals(itemId, saveItem?.itemId)
+            assertNotNull(saveItem)
+            assertEquals(itemId, saveItem.itemId)
         }
     }
 
@@ -59,12 +58,12 @@ class ItemDaoTest {
             val itemId: Long = itemDao.insert(item)
             val saveItem = itemDao.getItemByItemId(itemId)
 
-            Assert.assertNotNull(saveItem)
-            Assert.assertEquals(itemId, saveItem?.itemId)
+            assertNotNull(saveItem)
+            assertEquals(itemId, saveItem.itemId)
 
-            itemDao.delete(saveItem!!)
+            itemDao.delete(saveItem)
 
-            junit.framework.Assert.assertNull(itemDao.getItemByItemId(itemId))
+            assertNull(itemDao.getItemByItemId(itemId))
         }
     }
 
@@ -82,15 +81,15 @@ class ItemDaoTest {
             )
 
             val itemId: Long = itemDao.insert(item)
-            var saveItem = itemDao.getItemByItemId(itemId)
+            val saveItem = itemDao.getItemByItemId(itemId)
             val newMealName = "Chicken Wings"
 
-            saveItem?.meal_name = newMealName
-            itemDao.update(saveItem!!)
+            saveItem.meal_name = newMealName
+            itemDao.update(saveItem)
 
             val updateNote = itemDao.getItemByItemId(itemId)
 
-            assertEquals(saveItem.meal_name, updateNote?.meal_name)
+            assertEquals(saveItem.meal_name, updateNote.meal_name)
         }
     }
 }

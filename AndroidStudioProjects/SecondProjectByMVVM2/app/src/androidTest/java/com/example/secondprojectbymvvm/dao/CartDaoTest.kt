@@ -1,14 +1,11 @@
-package com.example.secondprojectbymvvm.DaoTest
+package com.example.secondprojectbymvvm.dao
 
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.secondprojectbymvvm.model.local.AppDatabase
-import com.example.secondprojectbymvvm.model.local.dao.AddressDao
 import com.example.secondprojectbymvvm.model.local.dao.CartDao
-import com.example.secondprojectbymvvm.model.local.entities.Address
 import com.example.secondprojectbymvvm.model.local.entities.Cart
-import kotlinx.coroutines.runBlocking
-import org.junit.Assert
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
@@ -39,8 +36,8 @@ class CartDaoTest {
         val cartId = cartDao.addCart(cart)
         val saveItem = cartDao.getCartMealByCartId(cartId)
 
-        Assert.assertNotNull(saveItem)
-        Assert.assertEquals(cartId, saveItem?.cartId)
+        assertNotNull(saveItem)
+        assertEquals(cartId, saveItem.cartId)
     }
 
 
@@ -60,12 +57,12 @@ class CartDaoTest {
         val cartId = cartDao.addCart(cart)
         val saveItem = cartDao.getCartMealByCartId(cartId)
 
-        Assert.assertNotNull(saveItem)
-        Assert.assertEquals(cartId, saveItem?.cartId)
+        assertNotNull(saveItem)
+        assertEquals(cartId, saveItem.cartId)
 
         cartDao.deleteCart(saveItem)
 
-        junit.framework.Assert.assertNull(cartDao.getCartMealByCartId(cartId))
+        assertNull(cartDao.getCartMealByCartId(cartId))
     }
 
     @Test
@@ -85,11 +82,11 @@ class CartDaoTest {
         val saveItem = cartDao.getCartMealByCartId(cartId)
             val newImageUrl = "www.facebook.com"
 
-            saveItem?.mealImageUrl = newImageUrl
-            cartDao.updateCart(saveItem!!)
+            saveItem.mealImageUrl = newImageUrl
+            cartDao.updateCart(saveItem)
 
             val updateNote = cartDao.getCartMealByCartId(cartId)
 
-            junit.framework.Assert.assertEquals(saveItem.mealImageUrl, updateNote?.mealImageUrl)
+            assertEquals(saveItem.mealImageUrl, updateNote.mealImageUrl)
         }
 }

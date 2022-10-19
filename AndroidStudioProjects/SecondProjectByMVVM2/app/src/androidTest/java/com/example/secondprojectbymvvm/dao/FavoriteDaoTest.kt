@@ -1,13 +1,12 @@
-package com.example.secondprojectbymvvm.DaoTest
+package com.example.secondprojectbymvvm.dao
 
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.secondprojectbymvvm.model.local.AppDatabase
 import com.example.secondprojectbymvvm.model.local.dao.FavoriteDao
-import com.example.secondprojectbymvvm.model.local.entities.Address
 import com.example.secondprojectbymvvm.model.local.entities.Favorite
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
@@ -35,8 +34,8 @@ class FavoriteDaoTest {
         val mealId = favoriteDao.addFavorite(favorite)
         val saveItem = favoriteDao.getFavoriteByMealId(mealId)
 
-        Assert.assertNotNull(saveItem)
-        Assert.assertEquals(mealId, saveItem.mealId)
+        assertNotNull(saveItem)
+        assertEquals(mealId, saveItem.mealId)
     }
 
 
@@ -53,12 +52,12 @@ class FavoriteDaoTest {
         val mealId = favoriteDao.addFavorite(favorite)
         val saveItem = favoriteDao.getFavoriteByMealId(mealId)
 
-        Assert.assertNotNull(saveItem)
-        Assert.assertEquals(mealId, saveItem?.mealId)
+        assertNotNull(saveItem)
+        assertEquals(mealId, saveItem.mealId)
 
-        favoriteDao.deleteFavorite(saveItem!!)
+        favoriteDao.deleteFavorite(saveItem)
 
-        junit.framework.Assert.assertNull(favoriteDao.getFavoriteByMealId(mealId))
+        assertNull(favoriteDao.getFavoriteByMealId(mealId))
     }
 
     @Test
@@ -76,12 +75,12 @@ class FavoriteDaoTest {
             val saveItem = favoriteDao.getFavoriteByMealId(addressId)
             val newMealPicture = "www.facebook.com"
 
-            saveItem?.mealPicture = newMealPicture
-            favoriteDao.updateFavorite(saveItem!!)
+            saveItem.mealPicture = newMealPicture
+            favoriteDao.updateFavorite(saveItem)
 
             val updateNote = favoriteDao.getFavoriteByMealId(addressId)
 
-            junit.framework.Assert.assertEquals(saveItem.mealPicture, updateNote?.mealPicture)
+            assertEquals(saveItem.mealPicture, updateNote.mealPicture)
         }
     }
 }

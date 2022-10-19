@@ -2,17 +2,21 @@ package com.example.secondprojectbymvvm.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.secondprojectbymvvm.model.ApiClient
 import com.example.secondprojectbymvvm.model.ApiService
+import com.example.secondprojectbymvvm.model.data.category.CategoryRepository
 import com.example.secondprojectbymvvm.model.data.category.CategoryResponse
 import com.example.secondprojectbymvvm.model.data.meal.MealResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.*
 
-class CategoryViewModel:ViewModel() {
+class CategoryViewModel(internal val repository:CategoryRepository):ViewModel() {
 
     private lateinit var retrofit: Retrofit
     private lateinit var apiService: ApiService
@@ -23,26 +27,29 @@ class CategoryViewModel:ViewModel() {
     lateinit var disposable : Disposable
     val compositeDisposable = CompositeDisposable()
 
+    val processing = MutableLiveData<Boolean>()
+    val error = MutableLiveData<String>()
 
     fun getAllCategory(){
-        retrofit = ApiClient.getRetrofit()
-        apiService = retrofit.create(ApiService::class.java)
-        disposable = apiService.getCategoryInfo()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe{
-                booleanLiveData.value = true
-            }
-            .doOnTerminate {
-                booleanLiveData.value = false
-            }
-            .subscribe( {response ->
-                categoryLiveData.postValue(response)
+        viewModelScope.launch(Dispatchers.IO) {
+            try{
+                processing.postValue(true)
+                val response:Response<CategoryResponse> = repository.getAllCategory()
+                processing.postValue(false)
+                val result = response.body()
 
-            },{t->
-                t.printStackTrace()
-            })
-        compositeDisposable.add(disposable)
+                result?.let {
+                    categoryLiveData.postValue(result)
+                }?:run{
+                    error.postValue("Empty result from server.")
+                    return@launch
+                }
+            }catch (e:Exception){
+                processing.postValue(false)
+                error.postValue(e.toString())
+            }
+
+        }
     }
 
     fun searchByMealName(message:String){

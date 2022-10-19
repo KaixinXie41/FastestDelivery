@@ -1,4 +1,4 @@
-package com.example.secondprojectbymvvm.view.checkout
+package com.example.secondprojectbymvvm.view.checkout.cart
 
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -15,16 +15,16 @@ import com.example.secondprojectbymvvm.model.local.AppDatabase
 import com.example.secondprojectbymvvm.model.local.entities.Cart
 import com.example.secondprojectbymvvm.model.local.dao.CartDao
 import com.example.secondprojectbymvvm.view.authentication.LoginActivity
-import com.example.secondprojectbymvvm.view.checkout.CartFragmentAdapter.Companion.TOTAL_PRICE
+import com.example.secondprojectbymvvm.view.checkout.cart.CartFragmentAdapter.Companion.TOTAL_PRICE
 import com.example.secondprojectbymvvm.view.checkout.checkout.CheckoutMealFragment
-import com.example.secondprojectbymvvm.view.mealitemlist.MealListAdapter.Companion.MEAL_ID
+import com.example.secondprojectbymvvm.view.mealitemlist.meallist.MealListAdapter.Companion.MEAL_ID
 import com.example.secondprojectbymvvm.viewmodel.CheckoutViewModel
 
 class CartFragment : Fragment() {
     private lateinit var binding:FragmentCartBinding
     private lateinit var cartDao: CartDao
     private lateinit var cartViewModel: CheckoutViewModel
-    private lateinit var adapter :CartFragmentAdapter
+    private lateinit var adapter : CartFragmentAdapter
     private lateinit var appDatabase: AppDatabase
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
