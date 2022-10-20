@@ -128,6 +128,6 @@ internal class RegistrationActivityTest {
         const val EMPTY_STRING = ""
         const val TEST_EXISTS_USERNAME = "Kai"
         const val TEST_EXISTS_MOBILE ="2140090089"
-        const val TEST_EXISTS_EMAIL = "kaixin@yahoo.com"
+        const val TEST_EXISTS_EMAIL = "xkx@gmail.com"
     }
 }

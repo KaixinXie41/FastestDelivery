@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
                 R.id.nav_profile ->{
-                    val userId = sharedPreferences.getInt(USER_ID, -1)
+                    val userId = sharedPreferences.getLong(USER_ID, -1).toInt()
                     if(userId != -1) {
                         val intent = Intent(this@MainActivity, ProfileActivity::class.java)
                         startActivity(intent)

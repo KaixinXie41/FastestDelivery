@@ -75,7 +75,7 @@ class CategoryAdapter(
             favoriteButton.setOnClickListener {
                 val favoriteMealName = meal.strMeal
                 val favoriteMealId = meal.idMeal
-                val userId = sharedPreferences.getInt(LoginActivity.USER_ID, 0)
+                val userId = sharedPreferences.getLong(LoginActivity.USER_ID, 0).toInt()
                 val favoriteMealPicture = meal.strMealThumb
                 val favorite = Favorite(
                     favoriteMealId.toLong(),
